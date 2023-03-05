@@ -10,6 +10,10 @@ export default function Document() {
           href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css"
           rel="stylesheet"
         />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;800&display=swap"
+          rel="stylesheet"
+        />
       </Head>
       <body>
         <Main />

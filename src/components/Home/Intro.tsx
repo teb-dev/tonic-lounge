@@ -60,7 +60,7 @@ const StDescription = styled.p`
 
 const StButton = styled.button`
   padding: 10px 20px;
-  width: 150px;
+
   height: 48px;
   background: rgba(255, 255, 255, 0.2);
   border: 1px solid rgba(255, 255, 255, 0.4);
