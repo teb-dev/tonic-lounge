@@ -3,7 +3,10 @@ import '@emotion/react';
 declare module '@emotion/react' {
   export interface Theme {
     colors: {
-      mainColor: string;
+      tonicWhite: string;
+      tonicPoint: string;
+      tonicBlack: string;
+      tonicSecondary: string;
     };
   }
 }
