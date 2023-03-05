@@ -6,10 +6,6 @@ import axios from 'axios';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 const Home: NextPage = () => {
-  axios.get('/api/lounges?page=1').then((res) => {
-    console.log(res);
-  });
-
   return (
     <StMain>
       <Head>

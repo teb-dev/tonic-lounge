@@ -1,14 +1,15 @@
 import styled from '@emotion/styled';
 import theme from '@src/styles/theme';
-import React from 'react';
 
+import LoungeList from './LoungeList';
 function LoungesArea() {
   const TITLE = 'Lounges';
-  const DESCRIPTION = (
-    <StDescriptionGroup>
-      You have to connect <b>TON & Telegram</b> to join eligible lounges.
-    </StDescriptionGroup>
-  );
+
+  // useEffect(async () => {
+  //   const result = await getLounges('1');
+
+  //   console.log(result);
+  // }, []);
 
   return (
     <StLoungeAreaWrapper>
@@ -19,6 +20,7 @@ function LoungesArea() {
           <StDescriptionBold>TON & Telegram</StDescriptionBold>
           <StDescription>to join eligible lounges.</StDescription>
         </StDescriptionGroup>
+        <LoungeList />
       </StLoungeArea>
     </StLoungeAreaWrapper>
   );
