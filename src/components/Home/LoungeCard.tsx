@@ -4,10 +4,6 @@ import { LoungeData } from '@src/types';
 import Image from 'next/image';
 import WhiteTelegramIcon from 'public/assets/WhiteTelegramIcon.svg';
 function LoungeCard({ name, requirement, image, redirectUrl }: LoungeData) {
-  const handleClick = () => {
-    window.open(redirectUrl);
-  };
-
   return (
     <StCard>
       <Image
@@ -28,7 +24,7 @@ function LoungeCard({ name, requirement, image, redirectUrl }: LoungeData) {
         </StDescription>
       </StContents>
       {/* @TODO case별로 버튼 종류 바뀌어야 할듯 -> 디자인 확실히 나오면 컴포넌트 분리해 조건부렌더링*/}
-      <StButton onClick={handleClick}>
+      <StButton>
         <WhiteTelegramIcon />
         Connect Telegram & Wallet
       </StButton>

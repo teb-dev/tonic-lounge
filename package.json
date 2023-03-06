@@ -6,7 +6,7 @@
   "license": "ISC",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && next export",
     "start": "next start",
     "lint": "next lint",
     "prettier": "prettier --write .",
@@ -21,7 +21,8 @@
     "next": "13.2.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-spinners": "^0.13.8"
+    "react-spinners": "^0.13.8",
+    "telegram-login-button": "^0.0.3"
   },
   "devDependencies": {
     "@babel/core": "^7.21.0",

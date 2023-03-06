@@ -1,11 +1,16 @@
 import styled from '@emotion/styled';
 import theme from '@src/styles/theme';
 import MainLogo from 'public/assets/mainLogo.svg';
-import TelegramIcon from 'public/assets/TelegramIcon.svg';
+//import TelegramIcon from 'public/assets/TelegramIcon.svg';
 import TonIcon from 'public/assets/TonIcon.svg';
+import TrayIcon from 'public/assets/TrayIcon.svg';
+import { useState } from 'react';
+import TelegramLoginButton, { TelegramUser } from 'telegram-login-button';
+
 function Header() {
   const CONNECT_WALLET = 'Connect Wallet';
-  const LOG_IN_WITH_TELEGRAM = 'Log in with Telegram';
+  const [user, setUser] = useState<TelegramUser | null>(null);
+  //const LOG_IN_WITH_TELEGRAM = 'Log in with Telegram';
 
   return (
     <StHeader>
@@ -13,13 +18,25 @@ function Header() {
         <MainLogo />
       </StLogo>
       <StButtonGroup>
+        {user ? (
+          <StTelegramButton>
+            <StTelegramImg src={user.photo_url} />
+            <StTelegramButtonText>{user.first_name}</StTelegramButtonText>
+            <TrayIcon />
+          </StTelegramButton>
+        ) : (
+          <StTelegramLoginButton
+            botName="TonicLoungeBot"
+            usePic={true}
+            dataOnauth={(user: TelegramUser) => {
+              setUser(user);
+              console.log(user);
+            }}
+          />
+        )}
         <StButton>
           <TonIcon />
           <StButtonText>{CONNECT_WALLET}</StButtonText>
-        </StButton>
-        <StButton>
-          <TelegramIcon />
-          <StButtonText>{LOG_IN_WITH_TELEGRAM}</StButtonText>
         </StButton>
       </StButtonGroup>
     </StHeader>
@@ -28,11 +45,18 @@ function Header() {
 
 export default Header;
 
+const StTelegramLoginButton = styled(TelegramLoginButton)`
+  display: flex;
+  align-items: center;
+  margin-right: 12px;
+`;
+
 const StPureButton = styled.button`
   // remove default button styles
   border: none;
   outline: none;
   cursor: pointer;
+  margin: 0px 6px;
 `;
 
 const StHeader = styled.header`
@@ -42,9 +66,7 @@ const StHeader = styled.header`
 `;
 
 const StButtonGroup = styled.div`
-  width: 426px;
   display: flex;
-  justify-content: space-between;
 `;
 const StLogo = styled(StPureButton)`
   background: transparent;
@@ -67,4 +89,31 @@ const StButtonText = styled.p`
   line-height: 21px;
   text-align: center;
   color: ${theme.colors.tonicSecondary};
+`;
+
+const StTelegramButton = styled(StPureButton)`
+  padding: 9px 12px;
+  display: flex;
+  align-items: center;
+  background: ${theme.colors.tonicLogin};
+  border-radius: 16px;
+  border: 1px solid ${theme.colors.tonicLoginBorder};
+`;
+
+const StTelegramImg = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+`;
+
+const StTelegramButtonText = styled.p`
+  margin-left: 6px;
+  margin-right: 19px;
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+  text-align: center;
+  color: ${theme.colors.tonicWhite};
 `;

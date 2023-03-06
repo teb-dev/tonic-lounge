@@ -7,6 +7,8 @@ declare module '@emotion/react' {
       tonicPoint: string;
       tonicBlack: string;
       tonicSecondary: string;
+      tonicLogin: string;
+      tonicLoginBorder: string;
     };
   }
 }
