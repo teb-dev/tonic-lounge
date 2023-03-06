@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import Header from '@src/components/common/Header';
 import Intro from '@src/components/Home/Intro';
 import LoungesArea from '@src/components/Home/LoungesArea';
-import axios from 'axios';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 const Home: NextPage = () => {

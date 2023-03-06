@@ -1,25 +1,20 @@
 import { Global, ThemeProvider } from '@emotion/react';
 import { global } from '@src/styles/global';
 import theme from '@src/styles/theme';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { TonConnectUIProvider } from '@tonconnect/ui-react';
 import type { AppProps } from 'next/app';
-function MyApp({ Component, pageProps }: AppProps) {
-  const queryClient = new QueryClient({
-    defaultOptions: {
-      queries: {
-        suspense: true,
-      },
-    },
-  });
 
+import { getApiEndpoint } from '../constants/env/env';
+
+function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Global styles={global} />
-      <ThemeProvider theme={theme}>
-        <QueryClientProvider client={queryClient}>
+      <TonConnectUIProvider manifestUrl={`https://${getApiEndpoint()}/tonconnect-manifest.json`}>
+        <ThemeProvider theme={theme}>
           <Component {...pageProps} />
-        </QueryClientProvider>
-      </ThemeProvider>
+        </ThemeProvider>
+      </TonConnectUIProvider>
     </>
   );
 }
