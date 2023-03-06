@@ -1,19 +1,14 @@
 import styled from '@emotion/styled';
 import theme from '@src/styles/theme';
-import { Wallet, WalletInfo } from '@tonconnect/sdk';
-import { TonConnectButton, useTonWallet } from '@tonconnect/ui-react';
+import { TonConnectButton } from '@tonconnect/ui-react';
 import MainLogo from 'public/assets/mainLogo.svg';
 //import TelegramIcon from 'public/assets/TelegramIcon.svg';
-import TonIcon from 'public/assets/TonIcon.svg';
 import TrayIcon from 'public/assets/TrayIcon.svg';
 import { useState } from 'react';
 import TelegramLoginButton, { TelegramUser } from 'telegram-login-button';
 
 function Header() {
-  const CONNECT_WALLET = 'Connect Wallet';
   const [user, setUser] = useState<TelegramUser | null>(null);
-  //const LOG_IN_WITH_TELEGRAM = 'Log in with Telegram';
-  const LOG_IN_WITH_TELEGRAM = 'Log in with Telegram';
 
   return (
     <StHeader>
@@ -38,8 +33,6 @@ function Header() {
           />
         )}
         <StButton>
-          <TonIcon />
-          <StButtonText>{CONNECT_WALLET}</StButtonText>
           <TonConnectButton />
         </StButton>
       </StButtonGroup>
