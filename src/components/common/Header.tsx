@@ -1,10 +1,13 @@
 import styled from '@emotion/styled';
 import theme from '@src/styles/theme';
+import { Wallet, WalletInfo } from '@tonconnect/sdk';
+import { TonConnectButton, useTonWallet } from '@tonconnect/ui-react';
 import MainLogo from 'public/assets/mainLogo.svg';
 import TelegramIcon from 'public/assets/TelegramIcon.svg';
 import TonIcon from 'public/assets/TonIcon.svg';
-function Header() {
-  const CONNECT_WALLET = 'Connect Wallet';
+import { useEffect, useState } from 'react';
+
+const Header = () => {
   const LOG_IN_WITH_TELEGRAM = 'Log in with Telegram';
 
   return (
@@ -13,10 +16,7 @@ function Header() {
         <MainLogo />
       </StLogo>
       <StButtonGroup>
-        <StButton>
-          <TonIcon />
-          <StButtonText>{CONNECT_WALLET}</StButtonText>
-        </StButton>
+        <TonConnectButton />
         <StButton>
           <TelegramIcon />
           <StButtonText>{LOG_IN_WITH_TELEGRAM}</StButtonText>
@@ -24,7 +24,7 @@ function Header() {
       </StButtonGroup>
     </StHeader>
   );
-}
+};
 
 export default Header;
 
@@ -42,7 +42,6 @@ const StHeader = styled.header`
 `;
 
 const StButtonGroup = styled.div`
-  width: 426px;
   display: flex;
   justify-content: space-between;
 `;
