@@ -82,4 +82,8 @@ export const global = css`
       }
     }
   }
+  #tc-wallets-modal-container {
+    padding-right: 12px;
+    font-family: 'Pretendard';
+  }
 `;
