@@ -32,9 +32,7 @@ function Header() {
             }}
           />
         )}
-        <StButton>
-          <TonConnectButton />
-        </StButton>
+        <TonConnectButton />
       </StButtonGroup>
     </StHeader>
   );

@@ -5,6 +5,7 @@ const nextConfig = {
     unoptimized: true,
     domains: ['i.imgur.com', 'localhost', 'www.thomas-henry.com'],
   },
+  swcMinify: false,
 };
 
 module.exports = nextConfig;
