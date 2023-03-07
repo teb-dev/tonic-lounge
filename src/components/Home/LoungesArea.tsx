@@ -1,9 +1,13 @@
 import styled from '@emotion/styled';
 import theme from '@src/styles/theme';
 import TonDuck from 'public/assets/TonDuck.svg';
+import { useState } from 'react';
 
+import Pagination from '../common/Pagination';
 import LoungeList from './LoungeList';
 function LoungesArea() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageLimit, setPageLimit] = useState(1);
   const TITLE = 'Lounges';
 
   return (
@@ -18,8 +22,12 @@ function LoungesArea() {
           <StDescriptionBold>TON & Telegram</StDescriptionBold>
           <StDescription>to join eligible lounges.</StDescription>
         </StDescriptionGroup>
-
-        <LoungeList />
+        <LoungeList currentPage={currentPage} setPageLimit={setPageLimit} />
+        <Pagination
+          pageLimit={pageLimit}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
       </StLoungeArea>
     </StLoungeAreaWrapper>
   );
@@ -43,9 +51,7 @@ const StLoungeArea = styled.section`
   align-items: center;
   padding: 40px;
   gap: 40px;
-
   width: 1000px;
-  height: 893px;
 
   /* tonic wallet/white-30 */
 

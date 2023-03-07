@@ -24,6 +24,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-spinners": "^0.13.8",
+    "shortid": "^2.2.16",
     "telegram-login-button": "^0.0.3"
   },
   "devDependencies": {
@@ -31,6 +32,7 @@
     "@types/node": "17.0.38",
     "@types/react": "18.0.10",
     "@types/react-dom": "18.0.5",
+    "@types/shortid": "^0.0.29",
     "@types/webextension-polyfill": "^0.9.1",
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",

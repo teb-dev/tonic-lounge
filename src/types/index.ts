@@ -3,6 +3,8 @@ export type LoungeData = {
   requirement: string;
   image: string;
   redirectUrl: string;
+  check?: boolean;
+  type?: 'ton' | 'jetton';
 };
 
 export interface LoungeResponse {
