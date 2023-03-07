@@ -1,14 +1,15 @@
 import styled from '@emotion/styled';
+import { useLocalStorage } from '@src/hooks/useLocalStorage';
 import theme from '@src/styles/theme';
 import { TonConnectButton } from '@tonconnect/ui-react';
 import MainLogo from 'public/assets/mainLogo.svg';
 //import TelegramIcon from 'public/assets/TelegramIcon.svg';
 import TrayIcon from 'public/assets/TrayIcon.svg';
-import { useState } from 'react';
 import TelegramLoginButton, { TelegramUser } from 'telegram-login-button';
 
 function Header() {
-  const [user, setUser] = useState<TelegramUser | null>(null);
+  const initialUser: TelegramUser | null | undefined = null;
+  const [user, setUser] = useLocalStorage<any>('telegramUser', initialUser);
 
   return (
     <StHeader>
@@ -18,8 +19,8 @@ function Header() {
       <StButtonGroup>
         {user ? (
           <StTelegramButton>
-            <StTelegramImg src={user.photo_url} />
-            <StTelegramButtonText>{user.first_name}</StTelegramButtonText>
+            <StTelegramImg src={user?.photo_url} />
+            <StTelegramButtonText>{user?.first_name}</StTelegramButtonText>
             <TrayIcon />
           </StTelegramButton>
         ) : (

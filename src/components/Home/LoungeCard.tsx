@@ -1,9 +1,22 @@
 import styled from '@emotion/styled';
+import { pingBot } from '@src/lib/api';
 import theme from '@src/styles/theme';
 import { LoungeData } from '@src/types';
 import Image from 'next/image';
 import WhiteTelegramIcon from 'public/assets/WhiteTelegramIcon.svg';
-function LoungeCard({ name, requirement, image, redirectUrl }: LoungeData) {
+
+function LoungeCard({
+  id,
+  name,
+  requirement,
+  image,
+  redirectUrl,
+  user,
+  userFriendlyAddress,
+  check,
+}: LoungeData) {
+  console.log('check', check);
+
   return (
     <StCard>
       <Image
@@ -23,11 +36,27 @@ function LoungeCard({ name, requirement, image, redirectUrl }: LoungeData) {
           <StRequirement>{requirement}</StRequirement>
         </StDescription>
       </StContents>
-      {/* @TODO case별로 버튼 종류 바뀌어야 할듯 -> 디자인 확실히 나오면 컴포넌트 분리해 조건부렌더링*/}
-      <StButton>
-        <WhiteTelegramIcon />
-        Connect Telegram & Wallet
-      </StButton>
+      {user && userFriendlyAddress ? (
+        check ? (
+          <StJoinButton
+            onClick={() => {
+              pingBot(user.id, id);
+              alert('Check your telegram!');
+            }}
+          >
+            <StButtonText>Join</StButtonText>
+          </StJoinButton>
+        ) : (
+          <StRejectButton>
+            <StButtonText>Rejected</StButtonText>
+          </StRejectButton>
+        )
+      ) : (
+        <StButton>
+          <WhiteTelegramIcon />
+          Connect Telegram & Wallet
+        </StButton>
+      )}
     </StCard>
   );
 }
@@ -113,4 +142,33 @@ const StButton = styled(StPureButton)`
   opacity: 0.3;
   border-radius: 12px;
   color: ${theme.colors.tonicWhite};
+`;
+
+const StPureLinkButton = styled(StPureButton)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 14.5px 20.5px;
+  border-radius: 12px;
+`;
+
+const StRejectButton = styled(StPureLinkButton)`
+  background: ${theme.colors.tonicGray};
+  color: ${theme.colors.tonicDarkGray};
+  cursor: default;
+`;
+
+const StJoinButton = styled(StPureLinkButton)`
+  background: ${theme.colors.tonicSecondary};
+  color: ${theme.colors.tonicWhite};
+`;
+
+const StButtonText = styled.p`
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  /* identical to box height */
+  text-align: center;
 `;
