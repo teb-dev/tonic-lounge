@@ -20,8 +20,6 @@ const LoungeList = ({ page }: LoungeListProps) => {
 function Resolved({ page = 1 }: LoungeListProps) {
   const { data } = useQuery(['lounges', page], () => getLounges(page));
 
-  console.log('data', data);
-
   return (
     <StList>
       {data?.data.map((lounge, idx) => (

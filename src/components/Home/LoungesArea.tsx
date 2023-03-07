@@ -1,25 +1,24 @@
 import styled from '@emotion/styled';
 import theme from '@src/styles/theme';
+import TonDuck from 'public/assets/TonDuck.svg';
 
 import LoungeList from './LoungeList';
 function LoungesArea() {
   const TITLE = 'Lounges';
 
-  // useEffect(async () => {
-  //   const result = await getLounges('1');
-
-  //   console.log(result);
-  // }, []);
-
   return (
     <StLoungeAreaWrapper>
       <StLoungeArea>
+        <StTonDuckWrapper>
+          <TonDuck />
+        </StTonDuckWrapper>
         <StTitle>{TITLE}</StTitle>
         <StDescriptionGroup>
           <StDescription>You have to connect</StDescription>
           <StDescriptionBold>TON & Telegram</StDescriptionBold>
           <StDescription>to join eligible lounges.</StDescription>
         </StDescriptionGroup>
+
         <LoungeList />
       </StLoungeArea>
     </StLoungeAreaWrapper>
@@ -38,6 +37,7 @@ const StLoungeAreaWrapper = styled.div`
 `;
 
 const StLoungeArea = styled.section`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,4 +79,10 @@ const StDescription = styled.p`
 `;
 const StDescriptionBold = styled(StDescription)`
   font-weight: 600;
+`;
+
+const StTonDuckWrapper = styled.div`
+  position: absolute;
+  left: 888px;
+  top: -120px;
 `;
