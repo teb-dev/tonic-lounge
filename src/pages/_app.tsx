@@ -10,7 +10,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Global styles={global} />
-      <TonConnectUIProvider manifestUrl={`https://${getApiEndpoint()}/tonconnect-manifest.json`}>
+      <TonConnectUIProvider manifestUrl="/tonconnect-manifest.json">
         <ThemeProvider theme={theme}>
           <Component {...pageProps} />
         </ThemeProvider>
