@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import { yupResolver } from '@hookform/resolvers/yup';
 import theme from '@src/styles/theme';
-import React from 'react';
-import { DefaultValues, FormProvider, useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
+import { DefaultValues, FormProvider, useForm, useFormContext } from 'react-hook-form';
 import * as yup from 'yup';
 
 import CreateBadgeForm from './CreateBadgeForm';
@@ -24,12 +24,13 @@ export interface CreateBadgeFormTypes {
 
 function CreateBadge() {
   const TITLE = 'Create Your Own Tonic Badge';
+  const [isAbleToSubmit, setIsAbleToSubmit] = useState(false);
   const schema = yup.object().shape({
     title: yup.string().required('title is required.'),
     description: yup.string().required('description is required'),
     image: yup.string().required('image is required'),
     walletLists: yup.string().required('walletLists is required'),
-    email: yup.string().required('email is required'),
+    email: yup.string().email().required('email is required'),
   });
 
   const methods = useForm<CreateBadgeFormTypes>({
@@ -57,9 +58,11 @@ function CreateBadge() {
       <StLine />
       <StForm className="w-[560px]" onSubmit={handleSubmit(onSubmit)}>
         <FormProvider {...methods}>
-          <CreateBadgeForm />
+          <CreateBadgeForm setIsAbleToSubmit={setIsAbleToSubmit} />
         </FormProvider>
       </StForm>
+      <StLine />
+      <StCreateButton disabled={!isAbleToSubmit}>Create</StCreateButton>
     </StSection>
   );
 }
@@ -98,3 +101,28 @@ const StLine = styled.div`
 `;
 
 const StForm = styled.form``;
+const StPureButton = styled.button`
+  // remove default button styles
+  border: none;
+  outline: none;
+  cursor: pointer;
+`;
+const StCreateButton = styled(StPureButton)`
+  width: 620px;
+  height: 56px;
+
+  background: ${theme.colors.tonicWhite};
+  border-radius: 12px;
+  font-family: 'Unbounded';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 140%;
+
+  color: ${theme.colors.tonicSecondary};
+  :disabled {
+    background: ${theme.colors.tonicWhite};
+    color: ${theme.colors.tonicSecondary};
+    opacity: 0.5;
+  }
+`;

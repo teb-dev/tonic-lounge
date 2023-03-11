@@ -1,12 +1,31 @@
 import styled from '@emotion/styled';
 import theme from '@src/styles/theme';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import UploadImage from './UploadImage';
 
-function CreateBadgeForm() {
-  const { register } = useFormContext();
+interface CreateBadgeFormProps {
+  setIsAbleToSubmit: (value: boolean) => void;
+}
+
+function CreateBadgeForm({ setIsAbleToSubmit }: CreateBadgeFormProps) {
+  const { register, getValues } = useFormContext();
+
+  useEffect(() => {
+    const currentValue = getValues();
+
+    console.log('currentValue', currentValue);
+    if (
+      currentValue?.title !== '' &&
+      currentValue?.description !== '' &&
+      currentValue?.image !== '' &&
+      currentValue?.walletLists?.length !== 0 &&
+      currentValue?.email !== ''
+    ) {
+      setIsAbleToSubmit(true);
+    }
+  }, [getValues(), getValues]);
 
   return (
     <>
