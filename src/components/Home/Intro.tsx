@@ -10,18 +10,18 @@ export interface IIntro {
 
 const Intro = (props: { intro: IIntro }) => {
   return (
-    <StIntron>
+    <StIntro>
       <StTitle>{props.intro.title}</StTitle>
       {props.intro.description !== undefined && <StSubtitle>{props.intro.subtitle}</StSubtitle>}
       <StDescription>{props.intro.description}</StDescription>
       {props.intro.learnMore !== undefined && <StButton>{props.intro.learnMore}</StButton>}
-    </StIntron>
+    </StIntro>
   );
 };
 
 export default Intro;
 
-const StIntron = styled.section`
+const StIntro = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
