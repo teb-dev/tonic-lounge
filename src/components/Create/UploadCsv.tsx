@@ -40,9 +40,6 @@ function UploadCsv() {
           const result = getCleanedData(parsedData);
 
           setValue('walletLists', result, { shouldDirty: true, shouldValidate: true });
-
-          //   setFileData({ parsedData, originalFile: files[0] });
-          //   localStorage.setItem('whitelist', JSON.stringify(parsedData));
         };
 
         reader.readAsText(inputFile);
