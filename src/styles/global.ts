@@ -20,6 +20,14 @@ export const global = css`
         'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
     }
   }
+  button {
+    cursor: pointer;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 
   #ton-connect-button {
     margin-right: 20px;
