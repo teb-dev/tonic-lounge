@@ -2,13 +2,15 @@ import styled from '@emotion/styled';
 import theme from '@src/styles/theme';
 import { TonConnectButton } from '@tonconnect/ui-react';
 import MainLogo from 'public/assets/mainLogo.svg';
-//import TelegramIcon from 'public/assets/TelegramIcon.svg';
 import TrayIcon from 'public/assets/TrayIcon.svg';
 import { useState } from 'react';
 import TelegramLoginButton, { TelegramUser } from 'telegram-login-button';
 
-function Header() {
+import MenuButton, { EHeaderMenu } from './MenuButton/MenuButton';
+
+const Header = (props: { menuName: EHeaderMenu }) => {
   const [user, setUser] = useState<TelegramUser | null>(null);
+  const [isMenuOn, setIsMenuOn] = useState<boolean>(false);
 
   return (
     <StHeader>
@@ -16,6 +18,9 @@ function Header() {
         <MainLogo />
       </StLogo>
       <StButtonGroup>
+        <StMenuButtonWrapper>
+          <MenuButton menuName={props.menuName} isMenuOn={isMenuOn} setIsMenuOn={setIsMenuOn} />
+        </StMenuButtonWrapper>
         {user ? (
           <StTelegramButton>
             <StTelegramImg src={user.photo_url} />
@@ -36,7 +41,7 @@ function Header() {
       </StButtonGroup>
     </StHeader>
   );
-}
+};
 
 export default Header;
 
@@ -67,23 +72,8 @@ const StLogo = styled(StPureButton)`
   background: transparent;
 `;
 
-const StButton = styled(StPureButton)`
-  padding: 17.5px 16px;
-  display: flex;
-  align-items: center;
-  background: ${theme.colors.tonicWhite};
-  border-radius: 12px;
-`;
-
-const StButtonText = styled.p`
-  margin-left: 6px;
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 700;
-  font-size: 18px;
-  line-height: 21px;
-  text-align: center;
-  color: ${theme.colors.tonicSecondary};
+const StMenuButtonWrapper = styled.div`
+  margin-right: 12px;
 `;
 
 const StTelegramButton = styled(StPureButton)`

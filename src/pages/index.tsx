@@ -1,10 +1,20 @@
 import styled from '@emotion/styled';
-import Header from '@src/components/common/Header';
-import Intro from '@src/components/Home/Intro';
+import Header from '@src/components/common/Header/Header';
+import { EHeaderMenu } from '@src/components/common/Header/MenuButton/MenuButton';
+import Intro, { IIntro } from '@src/components/Home/Intro';
 import LoungesArea from '@src/components/Home/LoungesArea';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+
 const Home: NextPage = () => {
+  const introHome: IIntro = {
+    title: 'Welcome to Tonic Lounge',
+    subtitle: 'Your Community Space for Telegram',
+    description: `Explore exclusive, gated Telegram chat rooms that you have access to
+  based on your tokens, NFTs, and transaction history on the TON blockchain.`,
+    learnMore: 'Learn More',
+  };
+
   return (
     <StMain>
       <Head>
@@ -12,14 +22,15 @@ const Home: NextPage = () => {
         <meta name="description" content="Tonic Lounge" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
-      <Intro />
+      <Header menuName={EHeaderMenu.home} />
+      <Intro intro={introHome} />
       <LoungesArea />
     </StMain>
   );
 };
 
 export default Home;
+
 const StMain = styled.main`
   background: url('/assets/background.png') no-repeat center center;
   background-size: cover;

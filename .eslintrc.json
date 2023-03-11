@@ -35,7 +35,7 @@
     "space-in-parens": ["error", "never"],
     "computed-property-spacing": ["error", "never"],
     "comma-spacing": ["error", { "before": false, "after": true }],
-    "quotes": ["error", "single"],
+    "quotes": ["off", "single"],
     "no-tabs": ["error", { "allowIndentationTabs": true }],
     "semi": ["error", "always"],
     "object-shorthand": "error",

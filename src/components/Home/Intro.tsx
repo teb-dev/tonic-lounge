@@ -1,23 +1,23 @@
 import styled from '@emotion/styled';
 import theme from '@src/styles/theme';
-import React from 'react';
 
-function Intro() {
-  const TITLE = 'Welcome to Tonic Lounge';
-  const SUBTITLE = 'Your Community Space for Telegram';
-  const DESCRIPTION = `Explore exclusive, gated Telegram chat rooms that you have access to
-  based on your tokens, NFTs, and transaction history on the TON blockchain.`;
-  const LEARN_MORE = 'Learn More';
+export interface IIntro {
+  title: string;
+  subtitle?: string;
+  description: string;
+  learnMore?: string;
+}
 
+const Intro = (props: { intro: IIntro }) => {
   return (
     <StIntron>
-      <StTitle>{TITLE}</StTitle>
-      <StSubtitle>{SUBTITLE}</StSubtitle>
-      <StDescription>{DESCRIPTION}</StDescription>
-      <StButton>{LEARN_MORE}</StButton>
+      <StTitle>{props.intro.title}</StTitle>
+      {props.intro.description !== undefined && <StSubtitle>{props.intro.subtitle}</StSubtitle>}
+      <StDescription>{props.intro.description}</StDescription>
+      {props.intro.learnMore !== undefined && <StButton>{props.intro.learnMore}</StButton>}
     </StIntron>
   );
-}
+};
 
 export default Intro;
 
@@ -26,6 +26,7 @@ const StIntron = styled.section`
   flex-direction: column;
   align-items: center;
   margin-top: 80px;
+  text-align: center;
 `;
 
 const StTitle = styled.h1`
