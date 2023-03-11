@@ -45,7 +45,17 @@ const StContentsArea = styled.div`
   margin-top: 28px;
 `;
 
-const StGuideSection = styled.section``;
+const StGuideSection = styled.section`
+  width: 285px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 const StMain = styled.main`
   display: flex;
+  width: 1200px;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-top: 40px;
 `;

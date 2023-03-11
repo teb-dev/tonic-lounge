@@ -26,5 +26,7 @@ const StTitle = styled.h2`
   align-items: center;
   text-align: center;
 
+  margin-left: 108px;
+
   color: ${theme.colors.tonicWhite};
 `;
