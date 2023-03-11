@@ -16,25 +16,28 @@ const Home: NextPage = () => {
   };
 
   return (
-    <StMain>
+    <StWrapper>
       <Head>
         <title>Tonic Lounge</title>
         <meta name="description" content="Tonic Lounge" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header menuName={EHeaderMenu.home} />
-      <Intro intro={introHome} />
-      <LoungesArea />
-    </StMain>
+      <StMain>
+        <Intro intro={introHome} />
+        <LoungesArea />
+      </StMain>
+    </StWrapper>
   );
 };
 
 export default Home;
-
-const StMain = styled.main`
+const StWrapper = styled.div`
   background: url('/assets/background.png') no-repeat center center;
   background-size: cover;
   min-height: 100%;
   height: fit-content;
   width: 100%;
 `;
+
+const StMain = styled.main``;

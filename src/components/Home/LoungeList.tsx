@@ -4,6 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { ClipLoader } from 'react-spinners';
 
+import CommonError from '../common/CommonError';
+import ErrorBoundary from '../common/ErrorBoundary';
 import SSRSafeSuspense from '../common/SSRSafeSuspense';
 import LoungeCard from './LoungeCard';
 
@@ -13,9 +15,13 @@ interface LoungeListProps {
 }
 const LoungeList = ({ currentPage, setPageLimit }: LoungeListProps) => {
   return (
-    <SSRSafeSuspense fallback={<ClipLoader size={50} color={'#ffffff'} />}>
-      <Resolved currentPage={currentPage} setPageLimit={setPageLimit} />
-    </SSRSafeSuspense>
+    <ErrorBoundary
+      renderFallback={({ error, reset }) => <CommonError error={error} reset={reset} />}
+    >
+      <SSRSafeSuspense fallback={<ClipLoader size={50} color={'#ffffff'} />}>
+        <Resolved currentPage={currentPage} setPageLimit={setPageLimit} />
+      </SSRSafeSuspense>
+    </ErrorBoundary>
   );
 };
 

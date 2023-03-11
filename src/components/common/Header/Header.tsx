@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import theme from '@src/styles/theme';
 import { TonConnectButton } from '@tonconnect/ui-react';
+import { useRouter } from 'next/router';
 import MainLogo from 'public/assets/mainLogo.svg';
 import TrayIcon from 'public/assets/TrayIcon.svg';
 import { useState } from 'react';
@@ -11,10 +12,15 @@ import MenuButton, { EHeaderMenu } from './MenuButton/MenuButton';
 const Header = (props: { menuName: EHeaderMenu }) => {
   const [user, setUser] = useState<TelegramUser | null>(null);
   const [isMenuOn, setIsMenuOn] = useState<boolean>(false);
+  const router = useRouter();
+
+  const handleClick = () => {
+    router.push('/');
+  };
 
   return (
     <StHeader>
-      <StLogo>
+      <StLogo onClick={handleClick}>
         <MainLogo />
       </StLogo>
       <StButtonGroup>
