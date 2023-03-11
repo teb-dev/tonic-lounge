@@ -26,11 +26,11 @@ function CreateBadge() {
   const TITLE = 'Create Your Own Tonic Badge';
   const [isAbleToSubmit, setIsAbleToSubmit] = useState(false);
   const schema = yup.object().shape({
-    title: yup.string().required('title is required.'),
+    title: yup.string().max(100).required('title is required.'),
     description: yup.string().required('description is required'),
     image: yup.string().required('image is required'),
     walletLists: yup.string().required('walletLists is required'),
-    email: yup.string().email().required('email is required'),
+    email: yup.string().email('Must be a valid email').max(255).required('email is required'),
   });
 
   const methods = useForm<CreateBadgeFormTypes>({
@@ -51,6 +51,7 @@ function CreateBadge() {
     console.log('notify', notify);
     console.log('data', data);
   };
+  const titleValue = watch('title');
 
   return (
     <StSection>
@@ -58,11 +59,11 @@ function CreateBadge() {
       <StLine />
       <StForm className="w-[560px]" onSubmit={handleSubmit(onSubmit)}>
         <FormProvider {...methods}>
-          <CreateBadgeForm setIsAbleToSubmit={setIsAbleToSubmit} />
+          <CreateBadgeForm setIsAbleToSubmit={setIsAbleToSubmit} titleLength={titleValue.length} />
         </FormProvider>
+        <StLine />
+        <StCreateButton type="Submit" disabled={!isAbleToSubmit} value="Create" />
       </StForm>
-      <StLine />
-      <StCreateButton disabled={!isAbleToSubmit}>Create</StCreateButton>
     </StSection>
   );
 }
@@ -101,13 +102,16 @@ const StLine = styled.div`
 `;
 
 const StForm = styled.form``;
-const StPureButton = styled.button`
-  // remove default button styles
+// const StPureButton = styled.button`
+//   // remove default button styles
+//   border: none;
+//   outline: none;
+//   cursor: pointer;
+// `;
+const StCreateButton = styled.input`
   border: none;
   outline: none;
   cursor: pointer;
-`;
-const StCreateButton = styled(StPureButton)`
   width: 620px;
   height: 56px;
 

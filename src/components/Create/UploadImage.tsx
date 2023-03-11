@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { uploadImageToS3 } from '@src/lib/api';
 import theme from '@src/styles/theme';
-import { isValidImage } from '@src/utils/uploadImage';
+import { isValidImage } from '@src/utils/uploadFile';
 import UploadFile from 'public/assets/UploadFile.svg';
 import React, { useEffect, useRef, useState } from 'react';
 import { flushSync } from 'react-dom';

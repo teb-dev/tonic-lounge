@@ -1,16 +1,24 @@
 import styled from '@emotion/styled';
 import theme from '@src/styles/theme';
 import React, { useEffect } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useForm, useFormContext } from 'react-hook-form';
 
+import UploadCsv from './UploadCsv';
 import UploadImage from './UploadImage';
 
 interface CreateBadgeFormProps {
   setIsAbleToSubmit: (value: boolean) => void;
+  titleLength: number;
 }
 
-function CreateBadgeForm({ setIsAbleToSubmit }: CreateBadgeFormProps) {
+function CreateBadgeForm({ setIsAbleToSubmit, titleLength }: CreateBadgeFormProps) {
   const { register, getValues } = useFormContext();
+  const { watch } = useForm();
+  //   const titleValue = watch('title');
+
+  //   useEffect(() => {
+  //     console.log('titleValue', titleValue);
+  //   }, [titleValue]);
 
   useEffect(() => {
     const currentValue = getValues();
@@ -31,21 +39,24 @@ function CreateBadgeForm({ setIsAbleToSubmit }: CreateBadgeFormProps) {
     <>
       <StTitle>Display Image</StTitle>
       <UploadImage />
-      <StLabel className="label w-full" htmlFor="title">
-        Display Title
-      </StLabel>
-      <StInput type="text" placeholder="Name Your Tonic Badge" id="title" {...register('title')} />
-      <StLabel className="label w-full" htmlFor="email">
-        Description
-      </StLabel>
+      <StTitleArea>
+        <StLabel htmlFor="title">Display Title</StLabel>
+        <StTitleLength>{titleLength}/25</StTitleLength>
+      </StTitleArea>
+      <StInput
+        type="text"
+        placeholder="Name Your Tonic Badge"
+        id="title"
+        maxLength={25}
+        {...register('title', { required: true, maxLength: 25 })}
+      />
+      <StLabel htmlFor="email">Description</StLabel>
       <StTextArea
         placeholder="Explain how it stands out and Describe meaning of your badge"
         id="description"
         {...register('description')}
       />
-      <StLabel className="label w-full" htmlFor="email">
-        E-mail
-      </StLabel>
+      <StLabel htmlFor="email">E-mail</StLabel>
       <StInput
         type="email"
         placeholder="Enter your email to get notified after uploading"
@@ -54,7 +65,7 @@ function CreateBadgeForm({ setIsAbleToSubmit }: CreateBadgeFormProps) {
       />
       <StTitle>Wallet Allow</StTitle>
       <StMoreInfo>format : 1 column with wallet addresses</StMoreInfo>
-      <StWarning>IF YOU DON’T UPLOAD ALLOWED WALLETS, ANYONE CAN’T CLAIM YOUR BADGE</StWarning>
+      <UploadCsv />
     </>
   );
 }
@@ -72,6 +83,14 @@ const StTitle = styled.h2`
   margin-bottom: 12px;
 `;
 
+const StTitleArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 620px;
+  height: 22px;
+  align-items: center;
+`;
+
 const StLabel = styled.label`
   font-family: 'Unbounded';
   font-style: normal;
@@ -83,6 +102,15 @@ const StLabel = styled.label`
   color: ${theme.colors.tonicWhite};
 `;
 
+const StTitleLength = styled.div`
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+
+  color: ${theme.colors.tonicWhite};
+`;
 const StInput = styled.input`
   margin: 12px 0;
   display: flex;
@@ -162,14 +190,4 @@ const StMoreInfo = styled.p`
   line-height: 19px;
 
   color: ${theme.colors.tonicWhite};
-`;
-
-const StWarning = styled.p`
-  font-family: 'Pretendard';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-
-  color: rgba(255, 255, 255, 0.8);
 `;
