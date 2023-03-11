@@ -3,6 +3,8 @@ import { getLounges } from '@src/lib/api';
 import { useQuery } from '@tanstack/react-query';
 import { ClipLoader } from 'react-spinners';
 
+import CommonError from '../common/CommonError';
+import ErrorBoundary from '../common/ErrorBoundary';
 import SSRSafeSuspense from '../common/SSRSafeSuspense';
 import LoungeCard from './LoungeCard';
 
@@ -11,9 +13,13 @@ interface LoungeListProps {
 }
 const LoungeList = ({ page }: LoungeListProps) => {
   return (
-    <SSRSafeSuspense fallback={<ClipLoader size={50} color={'#ffffff'} />}>
-      <Resolved page={page} />
-    </SSRSafeSuspense>
+    <ErrorBoundary
+      renderFallback={({ error, reset }) => <CommonError error={error} reset={reset} />}
+    >
+      <SSRSafeSuspense fallback={<ClipLoader size={50} color={'#ffffff'} />}>
+        <Resolved page={page} />
+      </SSRSafeSuspense>
+    </ErrorBoundary>
   );
 };
 
