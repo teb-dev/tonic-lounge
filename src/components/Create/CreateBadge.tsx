@@ -10,7 +10,6 @@ const DEFAULT_VALUES: DefaultValues<CreateBadgeFormTypes> = {
   title: '',
   description: '',
   image: '',
-  owner: '',
   walletLists: [],
   email: '',
 };
@@ -19,7 +18,6 @@ export interface CreateBadgeFormTypes {
   title: string;
   description: string;
   image: string;
-  owner: string;
   walletLists: Array<string>;
   email: string;
 }
@@ -30,7 +28,6 @@ function CreateBadge() {
     title: yup.string().required('title is required.'),
     description: yup.string().required('description is required'),
     image: yup.string().required('image is required'),
-    owner: yup.string().required('owner is required'),
     walletLists: yup.string().required('walletLists is required'),
     email: yup.string().required('email is required'),
   });

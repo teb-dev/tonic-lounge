@@ -17,7 +17,7 @@ export const uploadImageToS3 = async (file: File) => {
 
   const { url } = data;
 
-  const { data: newData } = await axios.put(url, file, {
+  await axios.put(url, file, {
     headers: {
       'Content-type': file.type,
       'Access-Control-Allow-Origin': '*',
