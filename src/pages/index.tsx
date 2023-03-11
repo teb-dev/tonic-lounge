@@ -6,24 +6,28 @@ import type { NextPage } from 'next';
 import Head from 'next/head';
 const Home: NextPage = () => {
   return (
-    <StMain>
+    <StWrapper>
       <Head>
         <title>Tonic Lounge</title>
         <meta name="description" content="Tonic Lounge" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Header />
-      <Intro />
-      <LoungesArea />
-    </StMain>
+      <StMain>
+        <Intro />
+        <LoungesArea />
+      </StMain>
+    </StWrapper>
   );
 };
 
 export default Home;
-const StMain = styled.main`
+const StWrapper = styled.div`
   background: url('/assets/background.png') no-repeat center center;
   background-size: cover;
   min-height: 100%;
   height: fit-content;
   width: 100%;
 `;
+
+const StMain = styled.main``;
