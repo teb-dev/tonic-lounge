@@ -9,13 +9,11 @@ export const getLounges = async (page: number) => {
   return data;
 };
 
-export const postImageToS3 = async (file: File) => {
+export const uploadImageToS3 = async (file: File) => {
   const { data } = await axios.post('/api/s3/uploadFile', {
     name: file.name,
     type: file.type,
   });
-
-  console.log('data', data);
 
   const { url } = data;
 
@@ -25,8 +23,6 @@ export const postImageToS3 = async (file: File) => {
       'Access-Control-Allow-Origin': '*',
     },
   });
-
-  console.log('newData', newData);
 
   return BUCKET_URL + file.name;
 };

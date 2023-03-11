@@ -1,7 +1,13 @@
 import React from 'react';
 
+import UploadImage from './UploadImage';
+
 function CreateBadgeForm() {
-  return <div>CreateBadgeForm</div>;
+  return (
+    <>
+      <UploadImage />
+    </>
+  );
 }
 
 export default CreateBadgeForm;

@@ -5,12 +5,6 @@ import LoungeList from './LoungeList';
 function LoungesArea() {
   const TITLE = 'Lounges';
 
-  // useEffect(async () => {
-  //   const result = await getLounges('1');
-
-  //   console.log(result);
-  // }, []);
-
   return (
     <StLoungeAreaWrapper>
       <StLoungeArea>

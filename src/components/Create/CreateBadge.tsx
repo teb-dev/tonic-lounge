@@ -4,6 +4,8 @@ import theme from '@src/styles/theme';
 import React from 'react';
 import { DefaultValues, FormProvider, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+
+import CreateBadgeForm from './CreateBadgeForm';
 const DEFAULT_VALUES: DefaultValues<CreateBadgeFormTypes> = {
   title: '',
   description: '',
@@ -56,6 +58,11 @@ function CreateBadge() {
     <StSection>
       <StTitle>{TITLE}</StTitle>
       <StLine />
+      <StForm className="w-[560px]" onSubmit={handleSubmit(onSubmit)}>
+        <FormProvider {...methods}>
+          <CreateBadgeForm />
+        </FormProvider>
+      </StForm>
     </StSection>
   );
 }
@@ -92,3 +99,5 @@ const StLine = styled.div`
   background: rgba(255, 255, 255, 0.4);
   margin: 24px 0px;
 `;
+
+const StForm = styled.form``;
