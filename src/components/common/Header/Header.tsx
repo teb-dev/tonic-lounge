@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import { useLocalStorage } from '@src/hooks/useLocalStorage';
 import theme from '@src/styles/theme';
 import { TonConnectButton } from '@tonconnect/ui-react';
 import { useRouter } from 'next/router';
@@ -10,7 +11,8 @@ import TelegramLoginButton, { TelegramUser } from 'telegram-login-button';
 import MenuButton, { EHeaderMenu } from './MenuButton/MenuButton';
 
 const Header = (props: { menuName: EHeaderMenu }) => {
-  const [user, setUser] = useState<TelegramUser | null>(null);
+  const initialUser: TelegramUser | null | undefined = null;
+  const [user, setUser] = useLocalStorage<any>('telegramUser', initialUser);
   const [isMenuOn, setIsMenuOn] = useState<boolean>(false);
   const router = useRouter();
 

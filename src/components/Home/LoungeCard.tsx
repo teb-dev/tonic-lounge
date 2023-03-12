@@ -3,24 +3,26 @@ import theme from '@src/styles/theme';
 import { LoungeData } from '@src/types';
 import Image from 'next/image';
 import WhiteTelegramIcon from 'public/assets/WhiteTelegramIcon.svg';
-function LoungeCard({ name, requirement, image, redirectUrl }: LoungeData) {
+function LoungeCard({ title, description, imageUrl }: LoungeData) {
+  // requirements, redirectUrl 추가해야함.
+
   return (
     <StCard>
       <Image
-        src={image}
+        src={imageUrl}
         width={56}
         height={56}
         alt="lounge"
         style={{ borderRadius: '12px' }}
-        blurDataURL={image}
+        blurDataURL={imageUrl}
         placeholder="blur"
         unoptimized={true}
       />
       <StContents>
-        <StName>{name}</StName>
+        <StName>{title}</StName>
         <StDescription>
           <StBadge>Requirement</StBadge>
-          <StRequirement>{requirement}</StRequirement>
+          <StRequirement>{description}</StRequirement>
         </StDescription>
       </StContents>
       {/* @TODO case별로 버튼 종류 바뀌어야 할듯 -> 디자인 확실히 나오면 컴포넌트 분리해 조건부렌더링*/}

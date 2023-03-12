@@ -11,7 +11,7 @@ import { NextPage } from 'next';
 import testImage from '../../public/assets/exampleThumbnail.png';
 
 const introDiscover: IIntro = {
-  title: `TONIC BADGE IS FOR IDENTITY!`,
+  title: 'TONIC BADGE IS FOR IDENTITY!',
   description: `Tonic Badge allows you to mint your identity as digital mementos we call "BADGES."
                 Give Tonic Badges to people for expressing who really they are.`,
 };
@@ -21,19 +21,23 @@ const cardDescriptionList: IDiscoverCardInfo[] = [
     number: 1,
     title: 'Issue',
     subtitle: 'Each Badge is created to make a story.',
-    description: `Make proof of important achievement forever on the blockchain with words and pictures that bring back the moment for your community. it's as easy as filling out a form.`,
+    description:
+      // eslint-disable-next-line prettier/prettier
+      "Make proof of important achievement forever on the blockchain with words and pictures that bring back the moment for your community. it's as easy as filling out a form.",
   },
   {
     number: 2,
     title: 'Drop',
     subtitle: 'Connect collectors to shared history.',
-    description: `When you drop a Badge, you give collectors a chance to own their identity. Use the Tonic Lounge platform to give collectibles directly to collectors.`,
+    description:
+      'When you drop a Badge, you give collectors a chance to own their identity. Use the Tonic Lounge platform to give collectibles directly to collectors.',
   },
   {
     number: 3,
     title: 'Connect',
     subtitle: 'Make your own curated community.',
-    description: `After minting, Badges unlock a variety of experiences. From showing your unique identity to making great community with similar friends and more. Badges keep the great times spent together.`,
+    description:
+      'After minting, Badges unlock a variety of experiences. From showing your unique identity to making great community with similar friends and more. Badges keep the great times spent together.',
   },
 ];
 
@@ -43,56 +47,56 @@ const badges: IBadge[] = [
     title: 'GIVbacks Round 30',
     description:
       'This POAP is to honor GIVers that participated in Round 30. The Giveth mission is to reward & empower those ...',
-    isWhiteListed: true,
+    isWhiteListed: 1,
   },
   {
     thumbnail: testImage.src,
     title: 'GIVbacks Round 30',
     description:
       'This POAP is to honor GIVers that participated in Round 30. The Giveth mission is to reward & empower those ...',
-    isWhiteListed: false,
+    isWhiteListed: 0,
   },
   {
     thumbnail: testImage.src,
     title: 'GIVbacks Round 30',
     description:
       'This POAP is to honor GIVers that participated in Round 30. The Giveth mission is to reward & empower those ...',
-    isWhiteListed: true,
+    isWhiteListed: 1,
   },
   {
     thumbnail: testImage.src,
     title: 'GIVbacks Round 30',
     description:
       'This POAP is to honor GIVers that participated in Round 30. The Giveth mission is to reward & empower those ...',
-    isWhiteListed: false,
+    isWhiteListed: 0,
   },
   {
     thumbnail: testImage.src,
     title: 'GIVbacks Round 30',
     description:
       'This POAP is to honor GIVers that participated in Round 30. The Giveth mission is to reward & empower those ...',
-    isWhiteListed: true,
+    isWhiteListed: 1,
   },
   {
     thumbnail: testImage.src,
     title: 'GIVbacks Round 30',
     description:
       'This POAP is to honor GIVers that participated in Round 30. The Giveth mission is to reward & empower those ...',
-    isWhiteListed: true,
+    isWhiteListed: 1,
   },
   {
     thumbnail: testImage.src,
     title: 'GIVbacks Round 30',
     description:
       'This POAP is to honor GIVers that participated in Round 30. The Giveth mission is to reward & empower those ...',
-    isWhiteListed: true,
+    isWhiteListed: 1,
   },
   {
     thumbnail: testImage.src,
     title: 'GIVbacks Round 30',
     description:
       'This POAP is to honor GIVers that participated in Round 30. The Giveth mission is to reward & empower those ...',
-    isWhiteListed: true,
+    isWhiteListed: 1,
   },
 ];
 

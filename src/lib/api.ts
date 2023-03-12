@@ -4,7 +4,7 @@ const URL = 'http://ec2-3-37-70-35.ap-northeast-2.compute.amazonaws.com:3000';
 const BUCKET_URL = 'https://tonic-lounge-nft.s3.ap-northeast-2.amazonaws.com/';
 
 export const getLounges = async (page: number) => {
-  const { data }: { data: LoungeResponse } = await axios.get(`${URL}/api/lounges?page=${page}`);
+  const { data }: { data: LoungeResponse } = await axios.get(`${URL}/lounges?page=${page}`);
 
   return data;
 };

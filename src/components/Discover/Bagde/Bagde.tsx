@@ -5,7 +5,7 @@ export interface IBadge {
   thumbnail: string;
   title: string;
   description: string;
-  isWhiteListed: boolean;
+  isWhiteListed: number;
 }
 
 const Badge = (props: { badge: IBadge }) => {
@@ -18,8 +18,8 @@ const Badge = (props: { badge: IBadge }) => {
       <StBadgeDescriptionWrapper>
         <StBadgeDescription>{props.badge.description}</StBadgeDescription>
       </StBadgeDescriptionWrapper>
-      <StBadgeButton isWhiteListed={props.badge.isWhiteListed}>
-        {props.badge.isWhiteListed ? 'Claim Your Badge' : 'Not Allowed'}
+      <StBadgeButton isWhiteListed={props.badge.isWhiteListed == 1}>
+        {props.badge.isWhiteListed == 1 ? 'Claim Your Badge' : 'Not Allowed'}
       </StBadgeButton>
     </StBadge>
   );

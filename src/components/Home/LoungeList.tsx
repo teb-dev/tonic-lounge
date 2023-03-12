@@ -38,10 +38,11 @@ function Resolved({ currentPage = 1, setPageLimit }: LoungeListProps) {
       {data?.data.map((lounge, idx) => (
         <LoungeCard
           key={idx}
-          name={lounge.name}
+          title={lounge.title}
+          description={lounge.description}
           redirectUrl={lounge.redirectUrl}
-          requirement={lounge.requirement}
-          image={lounge.image}
+          requirements={lounge.requirements}
+          imageUrl={lounge.imageUrl}
         />
       ))}
     </StList>

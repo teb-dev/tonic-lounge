@@ -1,10 +1,15 @@
 export type LoungeData = {
-  name: string;
-  requirement: string;
-  image: string;
+  title: string;
+  description: string;
+  requirements: requirement[];
+  imageUrl: string;
   redirectUrl: string;
-  check?: boolean;
-  type?: 'ton' | 'jetton';
+  isApproved?: boolean;
+};
+
+type requirement = {
+  type?: 'nft' | 'balance';
+  requirement?: string;
 };
 
 export interface LoungeResponse {
