@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import theme from '@src/styles/theme';
 
 export interface IBadge {
-  thumbnail: string;
+  imageUrl: string;
   title: string;
   description: string;
   isWhiteListed: number;
@@ -12,7 +12,7 @@ const Badge = (props: { badge: IBadge }) => {
   return (
     <StBadge>
       <StBadgeThumbnailWrapper>
-        <img src={props.badge.thumbnail} alt="" />
+        <img src={props.badge.imageUrl} alt="" />
       </StBadgeThumbnailWrapper>
       <StBadgeTitle>{props.badge.title}</StBadgeTitle>
       <StBadgeDescriptionWrapper>

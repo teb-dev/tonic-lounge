@@ -19,11 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Global styles={global} />
-      <TonConnectUIProvider
-        manifestUrl={
-          'http://tonic-lounge.io.s3-website.ap-northeast-2.amazonaws.com/tonconnect-manifest.json'
-        }
-      >
+      <TonConnectUIProvider manifestUrl={`${getApiEndpoint()}tonconnect-manifest.json`}>
         <ThemeProvider theme={theme}>
           <QueryClientProvider client={queryClient}>
             <Component {...pageProps} />

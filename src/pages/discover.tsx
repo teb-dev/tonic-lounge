@@ -1,4 +1,6 @@
 import styled from '@emotion/styled';
+import CommonError from '@src/components/common/CommonError';
+import ErrorBoundary from '@src/components/common/ErrorBoundary';
 import Header from '@src/components/common/Header/Header';
 import { EHeaderMenu } from '@src/components/common/Header/MenuButton/MenuButton';
 import Badge, { IBadge } from '@src/components/Discover/Bagde/Bagde';
@@ -6,9 +8,14 @@ import DescriptionCard, {
   IDiscoverCardInfo,
 } from '@src/components/Discover/DescriptionCard/DescriptionCard';
 import Intro, { IIntro } from '@src/components/Home/Intro';
+import { getBadges } from '@src/lib/api';
+import { useQuery } from '@tanstack/react-query';
+import { useTonAddress } from '@tonconnect/ui-react';
 import { NextPage } from 'next';
+import { ClipLoader } from 'react-spinners';
 
 import testImage from '../../public/assets/exampleThumbnail.png';
+import SSRSafeSuspense from '../components/common/SSRSafeSuspense';
 
 const introDiscover: IIntro = {
   title: 'TONIC BADGE IS FOR IDENTITY!',
@@ -41,66 +48,24 @@ const cardDescriptionList: IDiscoverCardInfo[] = [
   },
 ];
 
-const badges: IBadge[] = [
-  {
-    thumbnail: testImage.src,
-    title: 'GIVbacks Round 30',
-    description:
-      'This POAP is to honor GIVers that participated in Round 30. The Giveth mission is to reward & empower those ...',
-    isWhiteListed: 1,
-  },
-  {
-    thumbnail: testImage.src,
-    title: 'GIVbacks Round 30',
-    description:
-      'This POAP is to honor GIVers that participated in Round 30. The Giveth mission is to reward & empower those ...',
-    isWhiteListed: 0,
-  },
-  {
-    thumbnail: testImage.src,
-    title: 'GIVbacks Round 30',
-    description:
-      'This POAP is to honor GIVers that participated in Round 30. The Giveth mission is to reward & empower those ...',
-    isWhiteListed: 1,
-  },
-  {
-    thumbnail: testImage.src,
-    title: 'GIVbacks Round 30',
-    description:
-      'This POAP is to honor GIVers that participated in Round 30. The Giveth mission is to reward & empower those ...',
-    isWhiteListed: 0,
-  },
-  {
-    thumbnail: testImage.src,
-    title: 'GIVbacks Round 30',
-    description:
-      'This POAP is to honor GIVers that participated in Round 30. The Giveth mission is to reward & empower those ...',
-    isWhiteListed: 1,
-  },
-  {
-    thumbnail: testImage.src,
-    title: 'GIVbacks Round 30',
-    description:
-      'This POAP is to honor GIVers that participated in Round 30. The Giveth mission is to reward & empower those ...',
-    isWhiteListed: 1,
-  },
-  {
-    thumbnail: testImage.src,
-    title: 'GIVbacks Round 30',
-    description:
-      'This POAP is to honor GIVers that participated in Round 30. The Giveth mission is to reward & empower those ...',
-    isWhiteListed: 1,
-  },
-  {
-    thumbnail: testImage.src,
-    title: 'GIVbacks Round 30',
-    description:
-      'This POAP is to honor GIVers that participated in Round 30. The Giveth mission is to reward & empower those ...',
-    isWhiteListed: 1,
-  },
-];
-
 const Discover: NextPage = () => {
+  return (
+    <ErrorBoundary
+      renderFallback={({ error, reset }) => <CommonError error={error} reset={reset} />}
+    >
+      <SSRSafeSuspense fallback={<ClipLoader size={50} color={'#ffffff'} />}>
+        <Resolved />
+      </SSRSafeSuspense>
+    </ErrorBoundary>
+  );
+};
+
+function Resolved() {
+  const walletAddress = useTonAddress();
+
+  console.log('walletAddress', walletAddress);
+  const { data } = useQuery(['badges', walletAddress], () => getBadges(walletAddress));
+
   return (
     <StDiscoverMain>
       <Header menuName={EHeaderMenu.discover} />
@@ -115,13 +80,13 @@ const Discover: NextPage = () => {
       </StCardDescriptionMain>
       <StLine />
       <StBadgeMain>
-        {badges.map((badgeItem: IBadge, index: number) => (
+        {data?.data.map((badgeItem: IBadge, index: number) => (
           <Badge badge={badgeItem} key={index} />
         ))}
       </StBadgeMain>
     </StDiscoverMain>
   );
-};
+}
 
 export default Discover;
 
