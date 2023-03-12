@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import Header from '@src/components/common/Header/Header';
 import { EHeaderMenu } from '@src/components/common/Header/MenuButton/MenuButton';
 import Intro, { IIntro } from '@src/components/Home/Intro';
+import LoungeBottom, { IBottom } from '@src/components/Home/LoungeBottom';
 import LoungesArea from '@src/components/Home/LoungesArea';
 import type { NextPage } from 'next';
 import Head from 'next/head';
@@ -15,6 +16,11 @@ const Home: NextPage = () => {
     learnMore: 'Learn More',
   };
 
+  const bottomHome: IBottom = {
+    title: `Do you want to make 
+    your own Tonic Lounge?`,
+  };
+
   return (
     <StWrapper>
       <Head>
@@ -26,6 +32,7 @@ const Home: NextPage = () => {
       <StMain>
         <Intro intro={introHome} />
         <LoungesArea />
+        <LoungeBottom bottom={bottomHome} />
       </StMain>
     </StWrapper>
   );

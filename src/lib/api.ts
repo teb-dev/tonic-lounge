@@ -9,6 +9,12 @@ export const getLounges = async (page: number) => {
   return data;
 };
 
+export const getBadges = async (walletAddress: string) => {
+  const { data } = await axios.get(`${URL}/badges/${walletAddress}`);
+
+  return data;
+};
+
 export const uploadImageToS3 = async (file: File) => {
   const { data } = await axios.post('/api/s3/uploadFile', {
     name: file.name,
