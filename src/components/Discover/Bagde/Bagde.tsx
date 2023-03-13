@@ -1,5 +1,8 @@
 import styled from '@emotion/styled';
+import { deployNftCollection, deployNftItem } from '@src/lib/nft';
 import theme from '@src/styles/theme';
+import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
+
 export interface IBadge {
   imageUrl: string;
   title: string;
@@ -8,6 +11,9 @@ export interface IBadge {
 }
 
 const Badge = (props: { badge: IBadge }) => {
+  const userFriendlyAddress = useTonAddress();
+  const [tonConnectUI, setOptions] = useTonConnectUI();
+
   return (
     <StBadge>
       <StBadgeThumbnailWrapper>
@@ -22,7 +28,13 @@ const Badge = (props: { badge: IBadge }) => {
           Claim Your Badge
         </StBadgeButton>
       ) : (
-        <StBadgeButton isWhiteListed={props.badge.isWhiteListed != 1}> Not Allowed</StBadgeButton>
+        <StBadgeButton
+          isWhiteListed={props.badge.isWhiteListed != 1}
+          onClick={() => deployNftItem(userFriendlyAddress, tonConnectUI)}
+        >
+          {' '}
+          Not Allowed
+        </StBadgeButton>
       )}
     </StBadge>
   );
