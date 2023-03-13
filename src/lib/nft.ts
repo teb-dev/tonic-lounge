@@ -1,4 +1,5 @@
-import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
+import { SendTransactionRequest } from '@tonconnect/sdk';
+import { TonConnectUI, useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
 import TonWeb from 'tonweb';
 
 const { NftCollection, NftItem, NftMarketplace, NftSale } = TonWeb.token.nft;
@@ -8,93 +9,96 @@ const tonweb = new TonWeb(
   }),
 );
 
-//const walletAddress = new TonWeb.utils.Address(useTonAddress());
-
-export const deployNftCollection = async (address: string) => {
+export const deployNftCollection = async (address: string, tonConnectUI: any) => {
   const WalletAddress = new TonWeb.utils.Address(address);
 
   const nftCollection = new NftCollection(tonweb.provider, {
     ownerAddress: WalletAddress,
-    royalty: 0 / 100,
+    royalty: 0,
     royaltyAddress: WalletAddress,
     collectionContentUri:
-      'https://tonic-lounge-nft.s3.ap-northeast-2.amazonaws.com/collection/collection.json',
+      'https://tonic-lounge-nft.s3.ap-northeast-2.amazonaws.com/collection/collection2.json',
     nftItemContentBaseUri: 'https://tonic-lounge-nft.s3.ap-northeast-2.amazonaws.com/nft/',
     nftItemCodeHex: NftItem.codeHex,
   });
 
   const nftCollectionAddress = await nftCollection.getAddress();
 
+  // collection address : EQA26bLllEJ6L3z5cRvAFUXPqhFjI7mYVbhanqqTRwd-eO6n
+  // ton scan url : https://tonscan.org/nft/EQA26bLllEJ6L3z5cRvAFUXPqhFjI7mYVbhanqqTRwd-eO6n
   console.log('collection address=', nftCollectionAddress.toString(true, true, true));
 
+  // check if the collection already exists
+  const addresses = new Set();
+  const walletHistory = await tonweb.getTransactions(WalletAddress);
+
+  walletHistory.forEach((el: any) => {
+    try {
+      addresses.add(el.out_msgs[0].destination);
+    } catch (e) {
+      console.log('error', e);
+    }
+  });
+
+  if (addresses.has(nftCollectionAddress.toString(true, true, true))) {
+    console.log('Collection already exists');
+  }
   const stateInit = (await nftCollection.createStateInit()).stateInit;
   const stateInitBoc = await stateInit.toBoc(false);
   const stateInitBase64 = TonWeb.utils.bytesToBase64(stateInitBoc);
-};
-
-/*
-export const DeployNftItem = async (address: string) => {
-  const [tonConnectUI] = useTonConnectUI();
-
-  // NFT Collection 주소
-  const nftCollectionAddress = new TonWeb.utils.Address(
-    'EQBm78tUJfFPYhAjPxHNvVXM0pxRWWeCWi7waUpiCZVB2DgW',
-  );
-
-  // NFT id 값
-  const nftId = 1;
-
-  // NFT index 값
-  const currentNftIndex = 0;
-
-  // collection admin wallet
-  const collectionAdminWallet = new TonWeb.utils.Address(
-    'EQCNW2PcpMqvmKF0jAKqbbuyMnFHTbolAznsbqmc9ssoxbYs',
-  );
-
-  // 현재 wallet 객체
-  const currentWallet = new TonWeb.utils.Address(walletAddress);
-
-  // Collection metadata 파일
-  const url = 'https://tonic-lounge-nft.s3.ap-northeast-2.amazonaws.com/collection/collection.json';
-
-  // nft item Base uri
-  const nftItemsUrl = 'https://tonic-lounge-nft.s3.ap-northeast-2.amazonaws.com/nft/';
-
-  // nft collection 정보
-  const nftCollection = new NftCollection(tonweb.provider, {
-    ownerAddress: collectionAdminWallet, // owner of the collection
-    royalty: 0 / 100, // royalty in %
-    royaltyAddress: collectionAdminWallet, // address to receive the royalties
-    collectionContentUri: url, // url to the collection content
-    nftItemContentBaseUri: nftItemsUrl, // url to the nft item content
-    nftItemCodeHex: NftItem.codeHex, // format of the nft item
-  });
-
-  const history = await tonweb.getTransactions(nftCollectionAddress);
-
   const amount = TonWeb.utils.toNano((0.05).toString());
-  const body = await nftCollection.createMintBody({
-    amount,
-    itemIndex: currentNftIndex,
-    itemContentUri: `${nftItemsUrl}/${nftId}/${currentNftIndex}.json`,
-    itemOwnerAddress: currentWallet,
-  });
-
-  const bodyBoc = await body.toBoc(false);
-  const bodyBase64 = TonWeb.utils.bytesToBase64(bodyBoc);
-
-  const myTransaction = {
+  const myTransaction: SendTransactionRequest = {
     validUntil: Date.now() + 1000000,
     messages: [
       {
         address: nftCollectionAddress.toString(true, true, true),
         amount: amount.toString(),
-        payload: bodyBase64,
+        payload: undefined,
+        stateInit: stateInitBase64,
       },
     ],
   };
 
   tonConnectUI.sendTransaction(myTransaction);
 };
-*/
+
+export const deployNftItem = async (address: string, tonConnectUI: any) => {
+  const WalletAddress = new TonWeb.utils.Address(address);
+
+  const nftCollection = new NftCollection(tonweb.provider, {
+    ownerAddress: WalletAddress,
+    royalty: 0,
+    royaltyAddress: WalletAddress,
+    collectionContentUri:
+      'https://tonic-lounge-nft.s3.ap-northeast-2.amazonaws.com/collection/collection2.json',
+    nftItemContentBaseUri: 'https://tonic-lounge-nft.s3.ap-northeast-2.amazonaws.com/nft/',
+    nftItemCodeHex: NftItem.codeHex,
+  });
+
+  const nftCollectionAddress = await nftCollection.getAddress();
+  const amount = TonWeb.utils.toNano((0.05).toString());
+
+  const body = await nftCollection.createMintBody({
+    amount,
+    itemIndex: 2,
+    itemContentUri: '0.json',
+    itemOwnerAddress: WalletAddress,
+  });
+
+  const bodyBoc = await body.toBoc(false);
+  const bodyBase64 = TonWeb.utils.bytesToBase64(bodyBoc);
+
+  const myTransaction: SendTransactionRequest = {
+    validUntil: Date.now() + 1000000,
+    messages: [
+      {
+        address: nftCollectionAddress.toString(true, true, true),
+        amount: amount.toString(),
+        payload: bodyBase64,
+        stateInit: undefined,
+      },
+    ],
+  };
+
+  tonConnectUI.sendTransaction(myTransaction);
+};
