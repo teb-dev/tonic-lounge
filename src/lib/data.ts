@@ -8,8 +8,9 @@ export const loungesData: LoungeData[] = [
     redirectUrl: 'https://t.me/+spWdZ1pUuyQyOThl',
     requirements: [
       {
-        type: 'balance',
-        requirement: '1000',
+        type: 'ton',
+        address: '0',
+        amount: 1000,
       },
     ],
   },

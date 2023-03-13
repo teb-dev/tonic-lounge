@@ -14,7 +14,6 @@ import { useTonAddress } from '@tonconnect/ui-react';
 import { NextPage } from 'next';
 import { ClipLoader } from 'react-spinners';
 
-import testImage from '../../public/assets/exampleThumbnail.png';
 import SSRSafeSuspense from '../components/common/SSRSafeSuspense';
 
 const introDiscover: IIntro = {
@@ -63,7 +62,6 @@ const Discover: NextPage = () => {
 function Resolved() {
   const walletAddress = useTonAddress();
 
-  console.log('walletAddress', walletAddress);
   const { data } = useQuery(['badges', walletAddress], () => getBadges(walletAddress));
 
   return (

@@ -28,9 +28,10 @@
     "react-dom": "18.2.0",
     "react-hook-form": "^7.34.2",
     "react-spinners": "^0.13.8",
-    "shortid": "^2.2.16",
     "react-toastify": "^9.0.8",
+    "shortid": "^2.2.16",
     "telegram-login-button": "^0.0.3",
+    "tonweb": "^0.0.60",
     "yup": "^0.32.11"
   },
   "devDependencies": {

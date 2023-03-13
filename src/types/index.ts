@@ -8,8 +8,9 @@ export type LoungeData = {
 };
 
 type requirement = {
-  type?: 'nft' | 'balance';
-  requirement?: string;
+  type?: 'nft' | 'ton' | 'jetton';
+  address?: string;
+  amount?: number;
 };
 
 export interface LoungeResponse {

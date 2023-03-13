@@ -3,6 +3,7 @@ import { useLocalStorage } from '@src/hooks/useLocalStorage';
 import theme from '@src/styles/theme';
 import { TonConnectButton } from '@tonconnect/ui-react';
 import { useRouter } from 'next/router';
+import DisconnectIcon from 'public/assets/Disconnect.svg';
 import MainLogo from 'public/assets/mainLogo.svg';
 import TrayIcon from 'public/assets/TrayIcon.svg';
 import { useState } from 'react';
@@ -14,6 +15,7 @@ const Header = (props: { menuName: EHeaderMenu }) => {
   const initialUser: TelegramUser | null | undefined = null;
   const [user, setUser] = useLocalStorage<any>('telegramUser', initialUser);
   const [isMenuOn, setIsMenuOn] = useState<boolean>(false);
+  const [isTelegramMenuOn, setIsTelegramMenuOn] = useState<boolean>(false);
   const router = useRouter();
 
   const handleClick = () => {
@@ -30,11 +32,37 @@ const Header = (props: { menuName: EHeaderMenu }) => {
           <MenuButton menuName={props.menuName} isMenuOn={isMenuOn} setIsMenuOn={setIsMenuOn} />
         </StMenuButtonWrapper>
         {user ? (
-          <StTelegramButton>
-            <StTelegramImg src={user.photo_url} />
-            <StTelegramButtonText>{user.first_name}</StTelegramButtonText>
-            <TrayIcon />
-          </StTelegramButton>
+          isTelegramMenuOn ? (
+            <>
+              <StTelegramButtonWrapper>
+                <StTelegramButton
+                  onClick={() => {
+                    setIsTelegramMenuOn(false);
+                  }}
+                >
+                  <StTelegramImg src={user.photo_url} />
+                  <StTelegramButtonText>{user.first_name}</StTelegramButtonText>
+                  <TrayIcon />
+                </StTelegramButton>
+                <StMenuDropdown>
+                  <StMenuWrapper onClick={() => setUser(null)}>
+                    <DisconnectIcon />
+                    <StMenuText>Disconnect</StMenuText>
+                  </StMenuWrapper>
+                </StMenuDropdown>
+              </StTelegramButtonWrapper>
+            </>
+          ) : (
+            <StTelegramButton
+              onClick={() => {
+                setIsTelegramMenuOn(true);
+              }}
+            >
+              <StTelegramImg src={user.photo_url} />
+              <StTelegramButtonText>{user.first_name}</StTelegramButtonText>
+              <TrayIcon />
+            </StTelegramButton>
+          )
         ) : (
           <StTelegramLoginButton
             botName="TonicLoungeBot"
@@ -109,4 +137,39 @@ const StTelegramButtonText = styled.p`
   line-height: 21px;
   text-align: center;
   color: ${theme.colors.tonicWhite};
+`;
+
+const StMenuDropdown = styled.div`
+  position: absolute;
+  width: 160px;
+  height: 56px;
+  top: 65px;
+  left: 0;
+  background: ${(props) => props.theme.colors.tonicLogin};
+  border-radius: 16px;
+  border: 1px solid ${theme.colors.tonicLoginBorder};
+  padding: 18px 12px;
+`;
+
+const StMenuWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  cursor: pointer;
+`;
+
+const StMenuText = styled.p`
+  font-family: 'Pretendard';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  text-align: center;
+  color: ${theme.colors.tonicWhite};
+  margin-left: 4px;
+`;
+
+const StTelegramButtonWrapper = styled.div`
+  position: relative;
+  font-family: 'Pretendard';
+  z-index: 100;
 `;

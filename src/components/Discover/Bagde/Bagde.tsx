@@ -1,6 +1,5 @@
 import styled from '@emotion/styled';
 import theme from '@src/styles/theme';
-
 export interface IBadge {
   imageUrl: string;
   title: string;
@@ -18,9 +17,13 @@ const Badge = (props: { badge: IBadge }) => {
       <StBadgeDescriptionWrapper>
         <StBadgeDescription>{props.badge.description}</StBadgeDescription>
       </StBadgeDescriptionWrapper>
-      <StBadgeButton isWhiteListed={props.badge.isWhiteListed == 1}>
-        {props.badge.isWhiteListed == 1 ? 'Claim Your Badge' : 'Not Allowed'}
-      </StBadgeButton>
+      {props.badge.isWhiteListed == 1 ? (
+        <StBadgeButton isWhiteListed={props.badge.isWhiteListed == 1}>
+          Claim Your Badge
+        </StBadgeButton>
+      ) : (
+        <StBadgeButton isWhiteListed={props.badge.isWhiteListed != 1}> Not Allowed</StBadgeButton>
+      )}
     </StBadge>
   );
 };
