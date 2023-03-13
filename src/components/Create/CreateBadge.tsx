@@ -28,7 +28,7 @@ function CreateBadge() {
   const schema = yup.object().shape({
     title: yup.string().max(100).required('title is required.'),
     description: yup.string().required('description is required'),
-    image: yup.mixed().required('image is required'),
+    // image: yup.mixed().required('image is required'),
     walletLists: yup.string().required('walletLists is required'),
     email: yup.string().email('Must be a valid email').max(255).required('email is required'),
   });
@@ -40,29 +40,31 @@ function CreateBadge() {
   });
 
   const {
-    handleSubmit,
+    // handleSubmit,
     watch,
+    getValues,
     formState: { dirtyFields },
   } = methods;
 
-  const onSubmit = (data: CreateBadgeFormTypes) => {
-    const notify = confirm('Are you sure you want to create the badge?');
-
-    console.log('notify', notify);
-    console.log('data', data);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    confirm('Are you sure you want to create the badge?');
+    console.log('values', getValues());
+    // TODO getValues()로 받아온 값들을 서버로 보내야함
   };
+
   const titleValue = watch('title');
 
   return (
     <StSection>
       <StTitle>{TITLE}</StTitle>
       <StLine />
-      <StForm className="w-[560px]" onSubmit={handleSubmit(onSubmit)}>
+      <StForm className="w-[560px]" onSubmit={handleSubmit}>
         <FormProvider {...methods}>
           <CreateBadgeForm setIsAbleToSubmit={setIsAbleToSubmit} titleLength={titleValue.length} />
         </FormProvider>
         <StLine />
-        <StCreateButton type="Submit" disabled={!isAbleToSubmit} value="Create" />
+        <StCreateButton type="submit" disabled={!isAbleToSubmit} value="Create" />
       </StForm>
     </StSection>
   );
