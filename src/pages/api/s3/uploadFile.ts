@@ -1,5 +1,10 @@
 import S3 from 'aws-sdk/clients/s3';
+import Cors from 'cors';
 import { NextApiRequest, NextApiResponse } from 'next';
+
+const cors = Cors({
+  methods: ['POST', 'GET', 'HEAD'],
+});
 
 const s3 = new S3({
   region: 'ap-northeast-2',
@@ -8,7 +13,21 @@ const s3 = new S3({
   signatureVersion: 'v4',
 });
 
+function runMiddleware(req: NextApiRequest, res: NextApiResponse, fn: any) {
+  return new Promise((resolve, reject) => {
+    fn(req, res, (result: any) => {
+      if (result instanceof Error) {
+        return reject(result);
+      }
+
+      return resolve(result);
+    });
+  });
+}
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+  await runMiddleware(req, res, cors);
+
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
