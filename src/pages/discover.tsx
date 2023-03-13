@@ -28,7 +28,6 @@ const cardDescriptionList: IDiscoverCardInfo[] = [
     title: 'Issue',
     subtitle: 'Each Badge is created to make a story.',
     description:
-      // eslint-disable-next-line prettier/prettier
       "Make proof of important achievement forever on the blockchain with words and pictures that bring back the moment for your community. it's as easy as filling out a form.",
   },
   {
