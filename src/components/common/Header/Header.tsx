@@ -1,12 +1,13 @@
 import styled from '@emotion/styled';
 import { useLocalStorage } from '@src/hooks/useLocalStorage';
+import { getJettons } from '@src/lib/tonapi';
 import theme from '@src/styles/theme';
-import { TonConnectButton } from '@tonconnect/ui-react';
+import { TonConnectButton, useTonAddress } from '@tonconnect/ui-react';
 import { useRouter } from 'next/router';
 import DisconnectIcon from 'public/assets/Disconnect.svg';
 import MainLogo from 'public/assets/mainLogo.svg';
 import TrayIcon from 'public/assets/TrayIcon.svg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TelegramLoginButton, { TelegramUser } from 'telegram-login-button';
 
 import MenuButton, { EHeaderMenu } from './MenuButton/MenuButton';
