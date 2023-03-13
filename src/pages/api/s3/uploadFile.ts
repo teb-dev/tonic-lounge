@@ -9,6 +9,9 @@ const s3 = new S3({
 });
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
+  console.log('[log]  process.env.ACCESS_KEY', process.env.ACCESS_KEY);
+  console.log('[log]  process.env.SECRET_KEY', process.env.SECRET_KEY);
+  console.log('[log]  process.env.BUCKET_NAME', process.env.BUCKET_NAME);
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
