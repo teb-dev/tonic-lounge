@@ -29,6 +29,7 @@ function Resolved({ currentPage = 1, setPageLimit }: LoungeListProps) {
   const MAX_DATA_PER_PAGE = 5;
   const { data } = useQuery(['lounges', currentPage], () => getLounges(currentPage));
 
+  console.log(data);
   useEffect(() => {
     data?.total && setPageLimit(data.total / MAX_DATA_PER_PAGE);
   }, [data, setPageLimit]);

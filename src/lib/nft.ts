@@ -8,9 +8,32 @@ const tonweb = new TonWeb(
   }),
 );
 
-export const DeployNftItem = async (address: string) => {
-  const walletAddress = useTonAddress();
+//const walletAddress = new TonWeb.utils.Address(useTonAddress());
 
+export const deployNftCollection = async (address: string) => {
+  const WalletAddress = new TonWeb.utils.Address(address);
+
+  const nftCollection = new NftCollection(tonweb.provider, {
+    ownerAddress: WalletAddress,
+    royalty: 0 / 100,
+    royaltyAddress: WalletAddress,
+    collectionContentUri:
+      'https://tonic-lounge-nft.s3.ap-northeast-2.amazonaws.com/collection/collection.json',
+    nftItemContentBaseUri: 'https://tonic-lounge-nft.s3.ap-northeast-2.amazonaws.com/nft/',
+    nftItemCodeHex: NftItem.codeHex,
+  });
+
+  const nftCollectionAddress = await nftCollection.getAddress();
+
+  console.log('collection address=', nftCollectionAddress.toString(true, true, true));
+
+  const stateInit = (await nftCollection.createStateInit()).stateInit;
+  const stateInitBoc = await stateInit.toBoc(false);
+  const stateInitBase64 = TonWeb.utils.bytesToBase64(stateInitBoc);
+};
+
+/*
+export const DeployNftItem = async (address: string) => {
   const [tonConnectUI] = useTonConnectUI();
 
   // NFT Collection 주소
@@ -47,6 +70,7 @@ export const DeployNftItem = async (address: string) => {
     nftItemContentBaseUri: nftItemsUrl, // url to the nft item content
     nftItemCodeHex: NftItem.codeHex, // format of the nft item
   });
+
   const history = await tonweb.getTransactions(nftCollectionAddress);
 
   const amount = TonWeb.utils.toNano((0.05).toString());
@@ -61,7 +85,7 @@ export const DeployNftItem = async (address: string) => {
   const bodyBase64 = TonWeb.utils.bytesToBase64(bodyBoc);
 
   const myTransaction = {
-    validUntil: 1,
+    validUntil: Date.now() + 1000000,
     messages: [
       {
         address: nftCollectionAddress.toString(true, true, true),
@@ -73,3 +97,4 @@ export const DeployNftItem = async (address: string) => {
 
   tonConnectUI.sendTransaction(myTransaction);
 };
+*/

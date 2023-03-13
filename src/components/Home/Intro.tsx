@@ -14,7 +14,11 @@ const Intro = (props: { intro: IIntro }) => {
       <StTitle>{props.intro.title}</StTitle>
       {props.intro.description !== undefined && <StSubtitle>{props.intro.subtitle}</StSubtitle>}
       <StDescription>{props.intro.description}</StDescription>
-      {props.intro.learnMore !== undefined && <StButton>{props.intro.learnMore}</StButton>}
+      {props.intro.learnMore !== undefined && (
+        <StButton href="https://dorahacks.io/buidl/4521" target="_blank">
+          {props.intro.learnMore}
+        </StButton>
+      )}
     </StIntro>
   );
 };
@@ -59,7 +63,7 @@ const StDescription = styled.p`
   margin-bottom: 24px;
 `;
 
-const StButton = styled.button`
+const StButton = styled.a`
   padding: 10px 20px;
 
   height: 48px;
@@ -73,6 +77,6 @@ const StButton = styled.button`
   font-weight: 400;
   font-size: 16px;
   line-height: 140%;
-
+  cursor: pointer;
   color: ${theme.colors.tonicWhite};
 `;

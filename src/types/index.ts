@@ -22,3 +22,31 @@ export interface CSV {
   error: any;
   meta: any;
 }
+
+export interface JettonResponse {
+  balances: JettonData[];
+}
+
+export interface JettonData {
+  balance: string;
+  jetton_address: string;
+  metadata: JettonMetadata;
+  verification: string;
+  wallet_address: JettonWallet;
+}
+
+export type JettonMetadata = {
+  address: string;
+  name: string;
+  decimals: number;
+  image: string;
+  symbol: string;
+  vericiation: string;
+};
+
+export type JettonWallet = {
+  address: string;
+  icon: string;
+  is_scam: boolean;
+  name: string;
+};
