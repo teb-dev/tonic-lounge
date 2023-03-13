@@ -19,6 +19,27 @@ function UploadImage() {
 
   const { setValue, getValues } = useFormContext();
 
+  const setImageFileToForm = (file: File) => {
+    setValue('image', file, { shouldDirty: true, shouldValidate: true });
+  };
+
+  const getPreviewImage = async (file: File) => {
+    const reader = new FileReader();
+
+    reader.readAsDataURL(file);
+
+    return new Promise<void>((resolve) => {
+      reader.onload = () => {
+        setPreviewImage(reader.result as string);
+
+        resolve();
+        flushSync(() => {
+          setIsLoading(false);
+        });
+      };
+    });
+  };
+
   const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     flushSync(() => {
       setIsLoading(true);
@@ -38,29 +59,8 @@ function UploadImage() {
 
       return;
     }
-
-    try {
-      const url = await uploadImageToS3(file);
-
-      setValue('image', url, { shouldDirty: true, shouldValidate: true });
-    } catch (error) {
-      console.log(error);
-      alert(`Error uploading file: ${error}`);
-    }
-    const reader = new FileReader();
-
-    reader.readAsDataURL(file);
-
-    return new Promise<void>((resolve) => {
-      reader.onload = () => {
-        setPreviewImage(reader.result as string);
-
-        resolve();
-        flushSync(() => {
-          setIsLoading(false);
-        });
-      };
-    });
+    setImageFileToForm(file);
+    await getPreviewImage(file);
   };
 
   const handleClick = () => {
@@ -69,7 +69,7 @@ function UploadImage() {
 
   useEffect(() => {
     if (getValues().image) {
-      setPreviewImage(getValues().image);
+      getPreviewImage(getValues().image);
     }
   }, [getValues]);
 

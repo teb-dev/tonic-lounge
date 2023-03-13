@@ -9,7 +9,7 @@ import CreateBadgeForm from './CreateBadgeForm';
 const DEFAULT_VALUES: DefaultValues<CreateBadgeFormTypes> = {
   title: '',
   description: '',
-  image: '',
+  image: null,
   walletLists: [],
   email: '',
 };
@@ -17,7 +17,7 @@ const DEFAULT_VALUES: DefaultValues<CreateBadgeFormTypes> = {
 export interface CreateBadgeFormTypes {
   title: string;
   description: string;
-  image: string;
+  image: File | null;
   walletLists: Array<string>;
   email: string;
 }
@@ -28,7 +28,7 @@ function CreateBadge() {
   const schema = yup.object().shape({
     title: yup.string().max(100).required('title is required.'),
     description: yup.string().required('description is required'),
-    image: yup.string().required('image is required'),
+    image: yup.mixed().required('image is required'),
     walletLists: yup.string().required('walletLists is required'),
     email: yup.string().email('Must be a valid email').max(255).required('email is required'),
   });
