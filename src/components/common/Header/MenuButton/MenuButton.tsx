@@ -137,11 +137,11 @@ const StMenuDropdownItem = styled.p<{ selected: boolean }>`
   cursor: pointer;
   background-color: ${(props) => props.theme.colors.tonicWhite};
 
-  :first-child {
+  :first-of-type {
     border-radius: 16px 16px 0 0;
   }
 
-  :last-child {
+  :last-of-type {
     border-radius: 0 0 16px 16px;
   }
   ${(props) =>

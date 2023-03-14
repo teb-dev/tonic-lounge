@@ -13,7 +13,7 @@ export interface IApiEndpoint {
 export const environment: EApiEndpoint = EApiEndpoint.main;
 
 export const apiEndpoint: IApiEndpoint = {
-  main: 'http://tonic-lounge.io.s3-website.ap-northeast-2.amazonaws.com/',
+  main: 'http://tonic-lounge.io.s3-website.ap-northeast-2.amazonaws.com',
   test: '',
   local: 'http://localhost:3000',
 };

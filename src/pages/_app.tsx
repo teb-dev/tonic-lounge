@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Global styles={global} />
-      <TonConnectUIProvider manifestUrl={`${getApiEndpoint()}tonconnect-manifest.json`}>
+      <TonConnectUIProvider manifestUrl={`${getApiEndpoint()}/tonconnect-manifest.json`}>
         <ThemeProvider theme={theme}>
           <QueryClientProvider client={queryClient}>
             <Component {...pageProps} />
