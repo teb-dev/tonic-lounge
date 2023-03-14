@@ -6,27 +6,26 @@ const SERVER_SIDE_KEY =
 const URL = 'https://tonapi.io/v1';
 
 export const getNFTs = async (walletAddress: string) => {
-  await axios
-    .get(`${URL}/nft/searchItems?owner=${walletAddress}&include_on_sale=true&limit=1000&offset=0`, {
-      headers: {
-        Authorization: 'Bearer ' + SERVER_SIDE_KEY,
-        'Content-Type': 'application/json',
+  return (
+    await axios.get(
+      `${URL}/nft/searchItems?owner=${walletAddress}&include_on_sale=true&limit=1000&offset=0`,
+      {
+        headers: {
+          Authorization: 'Bearer ' + SERVER_SIDE_KEY,
+          'Content-Type': 'application/json',
+        },
       },
-    })
-    .then((response) => {
-      return response.data.nft_items;
-    });
+    )
+  ).data.nft_items;
 };
 
 export const getJettons = async (walletAddress: string) => {
-  await axios
-    .get(`${URL}/jetton/getBalances?account=${walletAddress}`, {
+  return (
+    await axios.get(`${URL}/jetton/getBalances?account=${walletAddress}`, {
       headers: {
         Authorization: 'Bearer ' + SERVER_SIDE_KEY,
         'Content-Type': 'application/json',
       },
     })
-    .then((response) => {
-      return response.data.balances;
-    });
+  ).data.balances;
 };
