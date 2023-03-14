@@ -51,6 +51,8 @@ function CreateBadge() {
     e.preventDefault();
     confirm('Are you sure you want to create the badge?');
     const { title, description, image, walletLists, email } = getValues();
+
+    console.log('image', image);
     const result = createBadge(title, description, image, email, walletLists);
 
     console.log('result', result);

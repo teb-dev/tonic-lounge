@@ -43,14 +43,16 @@ export const createBadge = async (
   email: string,
   walletLists: Array<string>,
 ) => {
-  const { data } = await axios.post('/badges', {
-    title,
-    image,
-    description,
-    email,
-    walletLists,
-  });
-  const { url } = data;
+  const formData = new FormData();
 
-  return url;
+  formData.append('title', title);
+  formData.append('description', description);
+  formData.append('email', email);
+  formData.append('walletLists', JSON.stringify(walletLists));
+  if (image) {
+    formData.append('image', image);
+  }
+  const { data } = await axios.post(URL + '/badges', formData);
+
+  console.log('data', data);
 };
