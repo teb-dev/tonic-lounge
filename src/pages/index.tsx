@@ -4,8 +4,11 @@ import { EHeaderMenu } from '@src/components/common/Header/MenuButton/MenuButton
 import Intro, { IIntro } from '@src/components/Home/Intro';
 import LoungeBottom, { IBottom } from '@src/components/Home/LoungeBottom';
 import LoungesArea from '@src/components/Home/LoungesArea';
+import { getJettons, getNFTs } from '@src/lib/tonapi';
+import { useTonAddress } from '@tonconnect/ui-react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 
 const Home: NextPage = () => {
   const introHome: IIntro = {
@@ -20,6 +23,30 @@ const Home: NextPage = () => {
     title: `Do you want to make 
     your own Tonic Lounge?`,
   };
+
+  const walletAddress: string = useTonAddress();
+  const [NFTList, setNFTList] = useState([]);
+  const [jettons, setJettons] = useState([]);
+
+  const getNFTList = async () => {
+    if (walletAddress) {
+      const nfts = await getNFTs(walletAddress);
+
+      setNFTList(nfts);
+    }
+  };
+  const getJettonsList = async () => {
+    if (walletAddress) {
+      const jetton = await getJettons(walletAddress);
+
+      setJettons(jetton);
+    }
+  };
+
+  useEffect(() => {
+    getNFTList();
+    getJettonsList();
+  }, [walletAddress]);
 
   return (
     <StWrapper>
