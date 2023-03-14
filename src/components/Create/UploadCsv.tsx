@@ -10,8 +10,9 @@ function UploadCsv() {
   const allowedExtensions = ['csv'];
   const { setValue } = useFormContext();
 
-  const getFileData = async () => {
+  const getFileData = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     try {
+      e.preventDefault();
       const input = document.createElement('input');
       let inputFile;
       let parsedData;
@@ -52,7 +53,9 @@ function UploadCsv() {
 
   return (
     <>
-      <StButton onClick={getFileData}>Attach CSV file</StButton>
+      <StButton type="button" onClick={getFileData}>
+        Attach CSV file
+      </StButton>
       {inputFileName ? (
         <StWarning>{inputFileName}</StWarning>
       ) : (
