@@ -35,3 +35,22 @@ export const uploadImageToS3 = async (file: File) => {
 
   return BUCKET_URL + file.name;
 };
+
+export const createBadge = async (
+  title: string,
+  description: string,
+  image: File | null,
+  email: string,
+  walletLists: Array<string>,
+) => {
+  const { data } = await axios.post('/badges', {
+    title,
+    image,
+    description,
+    email,
+    walletLists,
+  });
+  const { url } = data;
+
+  return url;
+};

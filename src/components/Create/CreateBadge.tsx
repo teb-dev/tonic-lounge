@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { createBadge } from '@src/lib/api';
 import theme from '@src/styles/theme';
 import React, { useEffect, useState } from 'react';
 import { DefaultValues, FormProvider, useForm, useFormContext } from 'react-hook-form';
@@ -49,7 +50,10 @@ function CreateBadge() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     confirm('Are you sure you want to create the badge?');
-    console.log('values', getValues());
+    const { title, description, image, walletLists, email } = getValues();
+    const result = createBadge(title, description, image, email, walletLists);
+
+    console.log('result', result);
     // TODO getValues()로 받아온 값들을 서버로 보내야함
   };
 
