@@ -1,21 +1,12 @@
 import styled from '@emotion/styled';
-import CommonError from '@src/components/common/CommonError';
-import ErrorBoundary from '@src/components/common/ErrorBoundary';
 import Header from '@src/components/common/Header/Header';
 import { EHeaderMenu } from '@src/components/common/Header/MenuButton/MenuButton';
-import Badge, { IBadge } from '@src/components/Discover/Bagde/Bagde';
+import BadgeList from '@src/components/Discover/Bagde/BadgeList';
 import DescriptionCard, {
   IDiscoverCardInfo,
 } from '@src/components/Discover/DescriptionCard/DescriptionCard';
 import Intro, { IIntro } from '@src/components/Home/Intro';
-import { getBadges } from '@src/lib/api';
-import { useQuery } from '@tanstack/react-query';
-import { useTonAddress } from '@tonconnect/ui-react';
-import { NextPage } from 'next';
-import { ClipLoader } from 'react-spinners';
-
-import SSRSafeSuspense from '../components/common/SSRSafeSuspense';
-
+import theme from '@src/styles/theme';
 const introDiscover: IIntro = {
   title: 'TONIC BADGE IS FOR IDENTITY!',
   description: `Tonic Badge allows you to mint your identity as digital mementos we call "BADGES."
@@ -46,23 +37,7 @@ const cardDescriptionList: IDiscoverCardInfo[] = [
   },
 ];
 
-const Discover: NextPage = () => {
-  return (
-    <ErrorBoundary
-      renderFallback={({ error, reset }) => <CommonError error={error} reset={reset} />}
-    >
-      <SSRSafeSuspense fallback={<ClipLoader size={50} color={'#ffffff'} />}>
-        <Resolved />
-      </SSRSafeSuspense>
-    </ErrorBoundary>
-  );
-};
-
-function Resolved() {
-  const walletAddress = useTonAddress();
-
-  const { data } = useQuery(['badges', walletAddress], () => getBadges(walletAddress));
-
+function Discover() {
   return (
     <StDiscoverMain>
       <Header menuName={EHeaderMenu.discover} />
@@ -70,17 +45,18 @@ function Resolved() {
       <StCardDescriptionTitle>
         HOW DOES <b>TONIC BADGE</b> WORK?
       </StCardDescriptionTitle>
-      <StCardDescriptionMain>
+      <StCardDescriptionSection>
         {cardDescriptionList.map((item: IDiscoverCardInfo, index: number) => (
           <DescriptionCard info={item} key={index} />
         ))}
-      </StCardDescriptionMain>
+      </StCardDescriptionSection>
       <StLine />
-      <StBadgeMain>
-        {data?.data.map((badgeItem: IBadge, index: number) => (
+      <StBadgeSection>
+        {/* {data?.data.map((badgeItem: IBadge, index: number) => (
           <Badge badge={badgeItem} key={index} />
-        ))}
-      </StBadgeMain>
+        ))} */}
+        <BadgeList />
+      </StBadgeSection>
     </StDiscoverMain>
   );
 }
@@ -103,20 +79,11 @@ const StCardDescriptionTitle = styled.p`
   font-size: 36px;
   line-height: 45px;
   text-align: center;
-  color: #ffffff;
+  color: ${theme.colors.tonicWhite};
 
   b {
     font-weight: 500;
   }
-`;
-
-const StCardDescriptionMain = styled.main`
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  gap: 20px;
-  padding: 0 120px;
-  font-family: 'Unbounded';
 `;
 
 const StLine = styled.div`
@@ -130,7 +97,7 @@ const StLine = styled.div`
   height: 1px;
 `;
 
-const StBadgeMain = styled.main`
+const StBadgeSection = styled.section`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -139,4 +106,12 @@ const StBadgeMain = styled.main`
   padding: 0 120px;
   padding-bottom: 80px;
   gap: 12px;
+`;
+const StCardDescriptionSection = styled.section`
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 20px;
+  padding: 0 120px;
+  font-family: 'Unbounded';
 `;
