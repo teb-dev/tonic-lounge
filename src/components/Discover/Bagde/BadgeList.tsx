@@ -27,8 +27,6 @@ function Resolved() {
 
   const { data } = useQuery(['badges', walletAddress], () => getBadges(walletAddress));
 
-  console.log('data', data);
-
   if (data && data?.data?.length > 0) {
     return (
       <>
@@ -37,8 +35,10 @@ function Resolved() {
         ))}
       </>
     );
+  } else if (data && data?.data?.length === 0) {
+    return <StDescription>No badge registered yet :(</StDescription>;
   } else {
-    return <StDescription>No badge registered yet</StDescription>;
+    return <StDescription>Connect your wallet first !</StDescription>;
   }
 }
 
