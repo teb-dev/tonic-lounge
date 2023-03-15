@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { deployNftCollection, deployNftItem } from '@src/lib/nft';
+import { deployNftItem } from '@src/lib/nft';
 import theme from '@src/styles/theme';
 import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
 
@@ -7,7 +7,10 @@ export interface IBadge {
   imageUrl: string;
   title: string;
   description: string;
+  nftItemContentBaseUri: string;
   isWhiteListed: number;
+  mintAmount: number;
+  id: number;
 }
 
 const Badge = (props: { badge: IBadge }) => {
@@ -24,17 +27,22 @@ const Badge = (props: { badge: IBadge }) => {
         <StBadgeDescription>{props.badge.description}</StBadgeDescription>
       </StBadgeDescriptionWrapper>
       {props.badge.isWhiteListed == 1 ? (
-        <StBadgeButton isWhiteListed={props.badge.isWhiteListed == 1}>
-          Claim Your Badge
+        <StBadgeButton
+          isWhiteListed={props.badge.isWhiteListed == 1}
+          onClick={() =>
+            deployNftItem(
+              userFriendlyAddress,
+              tonConnectUI,
+              props.badge.nftItemContentBaseUri,
+              props.badge.mintAmount,
+              props.badge.id,
+            )
+          }
+        >
+          Claim Your Pass
         </StBadgeButton>
       ) : (
-        <StBadgeButton
-          isWhiteListed={props.badge.isWhiteListed != 1}
-          onClick={() => deployNftItem(userFriendlyAddress, tonConnectUI)}
-        >
-          {' '}
-          Not Allowed
-        </StBadgeButton>
+        <StBadgeButton isWhiteListed={props.badge.isWhiteListed != 1}> Not Allowed</StBadgeButton>
       )}
     </StBadge>
   );

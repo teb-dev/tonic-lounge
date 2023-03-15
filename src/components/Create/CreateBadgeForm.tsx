@@ -63,8 +63,8 @@ function CreateBadgeForm({ setIsAbleToSubmit, titleLength }: CreateBadgeFormProp
         id="email"
         {...register('email')}
       />
-      <StTitle>Wallet Allow</StTitle>
-      <StMoreInfo>format : 1 column with wallet addresses</StMoreInfo>
+      <StTitle>Whitelist</StTitle>
+      <StMoreInfo>Format: An excel .csv file with 1 column of TON wallet addresses</StMoreInfo>
       <UploadCsv />
     </>
   );

@@ -59,7 +59,12 @@ function UploadCsv() {
       {inputFileName ? (
         <StWarning>{inputFileName}</StWarning>
       ) : (
-        <StWarning>IF YOU DON’T UPLOAD ALLOWED WALLETS, ANYONE CAN’T CLAIM YOUR BADGE</StWarning>
+        <StWarning>
+          *Current version of Tonic Lounge will reject your request if you don&#39;t upload a
+          whitelist.
+          <br />
+          Public mintable Lounge Pass is coming soon!
+        </StWarning>
       )}
     </>
   );

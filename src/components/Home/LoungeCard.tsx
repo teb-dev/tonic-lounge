@@ -106,7 +106,7 @@ function LoungeCard({
         check ? (
           <StLoungeJoinButton
             onClick={() => {
-              enterLounge(user.id, redirectUrl);
+              enterLounge(user.id, redirectUrl, title);
             }}
           >
             Join

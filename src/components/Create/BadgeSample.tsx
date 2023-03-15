@@ -4,7 +4,7 @@ import Image from 'next/image';
 import React from 'react';
 
 function BadgeSample() {
-  const TITLE = 'Badge Sample';
+  const TITLE = 'Lounge Pass Sample';
 
   return (
     <StWrapper>

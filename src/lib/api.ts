@@ -1,3 +1,4 @@
+import { deployNftCollection } from '@src/lib/nft';
 import { LoungeResponse } from '@src/types';
 import axios from 'axios';
 const URL = 'http://ec2-3-37-70-35.ap-northeast-2.compute.amazonaws.com:3000';
@@ -37,10 +38,11 @@ export const uploadImageToS3 = async (file: File) => {
   return BUCKET_URL + file.name;
 };
 
-export const enterLounge = async (userId: string, redirectUrl: string) => {
+export const enterLounge = async (userId: string, redirectUrl: string, title: string) => {
   await axios.post(`${URL}/bot`, {
     link: redirectUrl,
     id: userId,
+    title,
   });
 };
 
@@ -50,6 +52,8 @@ export const createBadge = async (
   image: File | null,
   email: string,
   walletLists: Array<string>,
+  userFriendlyAddress: string,
+  tonConnectUI: any,
 ) => {
   const formData = new FormData();
 
@@ -61,8 +65,10 @@ export const createBadge = async (
     formData.append('image', image);
   }
   await axios.post(URL + '/badges', formData).then(async (response) => {
-    await axios.get(URL + `/badges/id/${response.data.data.insertId}`).then((response) => {
-      return response.data.data;
-    });
+    const { data } = await axios.get(URL + `/badges/id/${response.data.data.insertId}`);
+
+    deployNftCollection(userFriendlyAddress, tonConnectUI, data.data[0].nftItemContentBaseUri);
+
+    return data;
   });
 };

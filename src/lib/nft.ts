@@ -1,8 +1,9 @@
 import { SendTransactionRequest } from '@tonconnect/sdk';
 import { TonConnectUI, useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
+import axios from 'axios';
 import TonWeb from 'tonweb';
-
 const { NftCollection, NftItem, NftMarketplace, NftSale } = TonWeb.token.nft;
+const URL = 'http://ec2-3-37-70-35.ap-northeast-2.compute.amazonaws.com:3000';
 const tonweb = new TonWeb(
   new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC', {
     apiKey: 'e3527da67b176a2909489a09f6f1427399076af2f6080e7d497b451908aca7ed',
@@ -16,12 +17,13 @@ export const deployNftCollection = async (
 ) => {
   const WalletAddress = new TonWeb.utils.Address(address);
 
+  console.log('nftItemContentBaseUri', nftItemContentBaseUri);
   const nftCollection = new NftCollection(tonweb.provider, {
     ownerAddress: WalletAddress,
     royalty: 0,
     royaltyAddress: WalletAddress,
-    collectionContentUri: `${nftItemContentBaseUri}/badge.json`,
-    nftItemContentBaseUri,
+    collectionContentUri: `${nftItemContentBaseUri}badge.json`,
+    nftItemContentBaseUri: `${nftItemContentBaseUri}`,
     nftItemCodeHex: NftItem.codeHex,
   });
 
@@ -65,26 +67,34 @@ export const deployNftCollection = async (
   tonConnectUI.sendTransaction(myTransaction);
 };
 
-export const deployNftItem = async (address: string, tonConnectUI: any) => {
+export const deployNftItem = async (
+  address: string,
+  tonConnectUI: any,
+  nftItemContentBaseUri: string,
+  mintAmount: number,
+  id: number,
+) => {
   const WalletAddress = new TonWeb.utils.Address(address);
 
   const nftCollection = new NftCollection(tonweb.provider, {
     ownerAddress: WalletAddress,
     royalty: 0,
     royaltyAddress: WalletAddress,
-    collectionContentUri:
-      'https://tonic-lounge-nft.s3.ap-northeast-2.amazonaws.com/collection/collection2.json',
-    nftItemContentBaseUri: 'https://tonic-lounge-nft.s3.ap-northeast-2.amazonaws.com/nft/',
+    collectionContentUri: `${nftItemContentBaseUri}badge.json`,
+    nftItemContentBaseUri: `${nftItemContentBaseUri}`,
     nftItemCodeHex: NftItem.codeHex,
   });
 
   const nftCollectionAddress = await nftCollection.getAddress();
+
+  console.log('collection address=', nftCollectionAddress.toString(true, true, true));
+
   const amount = TonWeb.utils.toNano((0.05).toString());
 
   const body = await nftCollection.createMintBody({
     amount,
-    itemIndex: 2,
-    itemContentUri: '0.json',
+    itemIndex: `${mintAmount}`,
+    itemContentUri: 'badge.json',
     itemOwnerAddress: WalletAddress,
   });
 
@@ -104,4 +114,5 @@ export const deployNftItem = async (address: string, tonConnectUI: any) => {
   };
 
   tonConnectUI.sendTransaction(myTransaction);
+  await axios.put(`${URL}/badges/${id}`);
 };

@@ -4,14 +4,18 @@ import FirstIcon from 'public/assets/First.svg';
 import SecondIcon from 'public/assets/Second.svg';
 import ThirdIcon from 'public/assets/Third.svg';
 function Guide() {
-  const TITLE = '📚 Badge Making Guide';
-  const SUB_TITLE = 'Tonic Badge is SBT(Soul Bound Token) which is non-transferable NFT.';
+  const TITLE = '📚 Lounge Pass Minting Guide';
+  const SUB_TITLE =
+    'Tonic Lounge Pass can be an NFT or SBT (Soul Bound Token, or non-transferable NFT).';
   const DESCRIPTIONS = [
-    { icon: <FirstIcon />, text: 'Create Tonic Badge' },
-    { icon: <SecondIcon />, text: 'Admin will allow your Badge to be posted in Discover page.' },
+    { icon: <FirstIcon />, text: 'Use the station below to create your Lounge Pass' },
+    {
+      icon: <SecondIcon />,
+      text: 'Once approved, the admin will create the Lounge Pass and put it up on the Discover page from claim.',
+    },
     {
       icon: <ThirdIcon />,
-      text: 'People who are allowed can claim your Tonic Badge by minting with 0.05 TON ',
+      text: 'Whitelisted users connect their wallet to verify their eligibility, and once verified can claim their Lounge Pass by minting with 0.05 TON (+ gas fees).',
     },
   ];
 

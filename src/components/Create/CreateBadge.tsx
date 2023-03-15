@@ -3,6 +3,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { createBadge } from '@src/lib/api';
 import { deployNftCollection } from '@src/lib/nft';
 import theme from '@src/styles/theme';
+import { useQuery } from '@tanstack/react-query';
 import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
 import React, { useEffect, useState } from 'react';
 import { DefaultValues, FormProvider, useForm, useFormContext } from 'react-hook-form';
@@ -26,7 +27,7 @@ export interface CreateBadgeFormTypes {
 }
 
 function CreateBadge() {
-  const TITLE = 'Create Your Own Tonic Badge';
+  const TITLE = 'Create Your Own Tonic Lounge Pass';
   const [isAbleToSubmit, setIsAbleToSubmit] = useState(false);
   const userFriendlyAddress = useTonAddress();
   const [tonConnectUI, setOptions] = useTonConnectUI();
@@ -51,16 +52,14 @@ function CreateBadge() {
     formState: { dirtyFields },
   } = methods;
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const HandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     confirm('Are you sure you want to create the badge?');
     const { title, description, image, walletLists, email } = getValues();
 
-    console.log('image', image);
-    const result = createBadge(title, description, image, email, walletLists);
+    createBadge(title, description, image, email, walletLists, userFriendlyAddress, tonConnectUI);
 
     //deployNftCollection(userFriendlyAddress, tonConnectUI, result.nftItemContentBaseUri);
-    console.log('result', result);
 
     // TODO getValues()로 받아온 값들을 서버로 보내야함
   };
@@ -71,7 +70,7 @@ function CreateBadge() {
     <StSection>
       <StTitle>{TITLE}</StTitle>
       <StLine />
-      <StForm className="w-[560px]" onSubmit={handleSubmit}>
+      <StForm className="w-[560px]" onSubmit={HandleSubmit}>
         <FormProvider {...methods}>
           <CreateBadgeForm setIsAbleToSubmit={setIsAbleToSubmit} titleLength={titleValue.length} />
         </FormProvider>

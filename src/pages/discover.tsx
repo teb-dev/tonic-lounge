@@ -8,32 +8,33 @@ import DescriptionCard, {
 import Intro, { IIntro } from '@src/components/Home/Intro';
 import theme from '@src/styles/theme';
 const introDiscover: IIntro = {
-  title: 'TONIC BADGE IS FOR IDENTITY!',
-  description: `Tonic Badge allows you to mint your identity as digital mementos we call "BADGES."
-                Give Tonic Badges to people for expressing who really they are.`,
+  title: `Build Your Community 
+          with Lounge Pass!`,
+  description: `Tonic Lounge Pass allows you to mint NFTs and SBTs that gate your community
+  Share the Lounge Pass to connect with people you identity yourself with to form a community`,
 };
 
 const cardDescriptionList: IDiscoverCardInfo[] = [
   {
     number: 1,
-    title: 'Issue',
-    subtitle: 'Each Badge is created to make a story.',
+    title: 'Mint',
+    subtitle: '',
     description:
-      "Make proof of important achievement forever on the blockchain with words and pictures that bring back the moment for your community. it's as easy as filling out a form.",
+      "Each Lounge Pass is a NFT or SBT, and it expresses who you are and what kind of people you are building a community with. You can submit a whitelist for wallet addresses that can mint your Pass. It's as easy as filling out a form.",
   },
   {
     number: 2,
-    title: 'Drop',
-    subtitle: 'Connect collectors to shared history.',
+    title: 'Claim',
+    subtitle: '',
     description:
-      'When you drop a Badge, you give collectors a chance to own their identity. Use the Tonic Lounge platform to give collectibles directly to collectors.',
+      "Once your Lounge Pass is ready to drop and claim, you will be notified of it via the email address you provided Whitelisted addresses can go to Tonic Lounge's Discover page and connect their wallet to claim the Pass",
   },
   {
     number: 3,
     title: 'Connect',
-    subtitle: 'Make your own curated community.',
+    subtitle: '',
     description:
-      'After minting, Badges unlock a variety of experiences. From showing your unique identity to making great community with similar friends and more. Badges keep the great times spent together.',
+      'After minting, you can directly connect and communicate with other Lounge Pass holders by requesting to have a Tonic Lounge set up. Here only verified Lounge Pass holders will be able to access the Telegram chat, creating an exclusive community',
   },
 ];
 
@@ -43,7 +44,7 @@ function Discover() {
       <Header menuName={EHeaderMenu.discover} />
       <Intro intro={introDiscover} />
       <StCardDescriptionTitle>
-        HOW DOES <b>TONIC BADGE</b> WORK?
+        How does <b>Lounge Pass</b> work?
       </StCardDescriptionTitle>
       <StCardDescriptionSection>
         {cardDescriptionList.map((item: IDiscoverCardInfo, index: number) => (
