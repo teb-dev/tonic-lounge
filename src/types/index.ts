@@ -5,12 +5,14 @@ export type LoungeData = {
   imageUrl: string;
   redirectUrl: string;
   isApproved?: boolean;
+  user: any;
+  enterLounge: any;
 };
 
-type requirement = {
+export type requirement = {
   type?: 'nft' | 'ton' | 'jetton';
   address?: string;
-  amount?: number;
+  amount: number;
 };
 
 export interface LoungeResponse {

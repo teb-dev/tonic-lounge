@@ -9,16 +9,19 @@ const tonweb = new TonWeb(
   }),
 );
 
-export const deployNftCollection = async (address: string, tonConnectUI: any) => {
+export const deployNftCollection = async (
+  address: string,
+  tonConnectUI: any,
+  nftItemContentBaseUri: string,
+) => {
   const WalletAddress = new TonWeb.utils.Address(address);
 
   const nftCollection = new NftCollection(tonweb.provider, {
     ownerAddress: WalletAddress,
     royalty: 0,
     royaltyAddress: WalletAddress,
-    collectionContentUri:
-      'https://tonic-lounge-nft.s3.ap-northeast-2.amazonaws.com/collection/collection2.json',
-    nftItemContentBaseUri: 'https://tonic-lounge-nft.s3.ap-northeast-2.amazonaws.com/nft/',
+    collectionContentUri: `${nftItemContentBaseUri}/badge.json`,
+    nftItemContentBaseUri,
     nftItemCodeHex: NftItem.codeHex,
   });
 

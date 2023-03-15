@@ -7,6 +7,8 @@ const theme: Theme = {
     tonicSecondary: '#0595D9',
     tonicLogin: 'rgba(255, 255, 255, 0.2)',
     tonicLoginBorder: 'rgba(255, 255, 255, 0.4)',
+    tonicGray: '#C7CDD1',
+    tonicDarkGray: '#838B91',
   },
 };
 

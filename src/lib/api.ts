@@ -36,6 +36,13 @@ export const uploadImageToS3 = async (file: File) => {
   return BUCKET_URL + file.name;
 };
 
+export const enterLounge = async (userId: string, redirectUrl: string) => {
+  await axios.post(`${URL}/bot`, {
+    link: redirectUrl,
+    id: userId,
+  });
+};
+
 export const createBadge = async (
   title: string,
   description: string,
@@ -52,7 +59,9 @@ export const createBadge = async (
   if (image) {
     formData.append('image', image);
   }
-  const { data } = await axios.post(URL + '/badges', formData);
-
-  console.log('data', data);
+  await axios.post(URL + '/badges', formData).then(async (response) => {
+    await axios.get(URL + `/badges/id/${response.data.data.insertId}`).then((response) => {
+      return response.data.data;
+    });
+  });
 };

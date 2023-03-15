@@ -29,3 +29,14 @@ export const getJettons = async (walletAddress: string) => {
     })
   ).data.balances;
 };
+
+export const getTon = async (walletAddress: string) => {
+  return (
+    await axios.get(`${URL}/account/getInfo?account=${walletAddress}`, {
+      headers: {
+        Authorization: 'Bearer ' + SERVER_SIDE_KEY,
+        'Content-Type': 'application/json',
+      },
+    })
+  ).data.balance;
+};

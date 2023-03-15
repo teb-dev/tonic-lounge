@@ -1,7 +1,9 @@
 import styled from '@emotion/styled';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createBadge } from '@src/lib/api';
+import { deployNftCollection } from '@src/lib/nft';
 import theme from '@src/styles/theme';
+import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
 import React, { useEffect, useState } from 'react';
 import { DefaultValues, FormProvider, useForm, useFormContext } from 'react-hook-form';
 import * as yup from 'yup';
@@ -26,6 +28,8 @@ export interface CreateBadgeFormTypes {
 function CreateBadge() {
   const TITLE = 'Create Your Own Tonic Badge';
   const [isAbleToSubmit, setIsAbleToSubmit] = useState(false);
+  const userFriendlyAddress = useTonAddress();
+  const [tonConnectUI, setOptions] = useTonConnectUI();
   const schema = yup.object().shape({
     title: yup.string().max(100).required('title is required.'),
     description: yup.string().required('description is required'),
@@ -47,7 +51,7 @@ function CreateBadge() {
     formState: { dirtyFields },
   } = methods;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     confirm('Are you sure you want to create the badge?');
     const { title, description, image, walletLists, email } = getValues();
@@ -55,7 +59,9 @@ function CreateBadge() {
     console.log('image', image);
     const result = createBadge(title, description, image, email, walletLists);
 
+    //deployNftCollection(userFriendlyAddress, tonConnectUI, result.nftItemContentBaseUri);
     console.log('result', result);
+
     // TODO getValues()로 받아온 값들을 서버로 보내야함
   };
 

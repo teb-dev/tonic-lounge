@@ -1,8 +1,10 @@
 import styled from '@emotion/styled';
-import { getLounges } from '@src/lib/api';
+import { useLocalStorage } from '@src/hooks/useLocalStorage';
+import { enterLounge, getLounges } from '@src/lib/api';
 import { useQuery } from '@tanstack/react-query';
 import { Dispatch, SetStateAction, useEffect } from 'react';
 import { ClipLoader } from 'react-spinners';
+import { TelegramUser } from 'telegram-login-button';
 
 import CommonError from '../common/CommonError';
 import ErrorBoundary from '../common/ErrorBoundary';
@@ -27,9 +29,10 @@ const LoungeList = ({ currentPage, setPageLimit }: LoungeListProps) => {
 
 function Resolved({ currentPage = 1, setPageLimit }: LoungeListProps) {
   const MAX_DATA_PER_PAGE = 5;
+  const initialUser: TelegramUser | null | undefined = null;
   const { data } = useQuery(['lounges', currentPage], () => getLounges(currentPage));
+  const [user] = useLocalStorage<any>('telegramUser', initialUser);
 
-  console.log(data);
   useEffect(() => {
     data?.total && setPageLimit(data.total / MAX_DATA_PER_PAGE);
   }, [data, setPageLimit]);
@@ -44,6 +47,8 @@ function Resolved({ currentPage = 1, setPageLimit }: LoungeListProps) {
           redirectUrl={lounge.redirectUrl}
           requirements={lounge.requirements}
           imageUrl={lounge.imageUrl}
+          user={user}
+          enterLounge={enterLounge}
         />
       ))}
     </StList>
