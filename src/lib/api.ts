@@ -13,7 +13,7 @@ export const getBadges = async (walletAddress: string) => {
   if (!walletAddress) return null;
   const { data } = await axios.get(`${URL}/badges/${walletAddress}`);
 
-  console.log('data', data);
+  console.log('data--', data);
 
   return data;
 };
