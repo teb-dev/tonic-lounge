@@ -51,7 +51,7 @@ export const deployNftCollection = async (
   const stateInit = (await nftCollection.createStateInit()).stateInit;
   const stateInitBoc = await stateInit.toBoc(false);
   const stateInitBase64 = TonWeb.utils.bytesToBase64(stateInitBoc);
-  const amount = TonWeb.utils.toNano((0.05).toString());
+  const amount = TonWeb.utils.toNano((0.1).toString());
   const myTransaction: SendTransactionRequest = {
     validUntil: Date.now() + 1000000,
     messages: [
@@ -90,10 +90,7 @@ export const deployNftItem = async (
     nftItemCodeHex: NftItem.codeHex,
   });
 
-  //const nftCollectionAddress = await nftCollection.getAddress();
-  const nftCollectionAddress = new tonweb.utils.Address(
-    'EQALhGP2UQvF8DiLc0SP7Xxtq9t4Q8e_0tvfGe6Amt4TB6S3',
-  );
+  const nftCollectionAddress = await nftCollection.getAddress();
 
   console.log('collection address=', nftCollectionAddress.toString(true, true, true));
 
