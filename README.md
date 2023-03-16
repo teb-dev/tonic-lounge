@@ -18,7 +18,7 @@ npm run dev
 
 ## Description
 ---
-### TLDR
+### TL;DR
 - Tonic Lounge enables users to gain exclusive membership to Telegram chatroom communities based on their tokens
 - Tonic Lounge will give practical use cases of TON Jettons/NFT/SBT by providing 
   1) token-gated Telegram chatrooms where users have to verify their wallet balance to gain access
