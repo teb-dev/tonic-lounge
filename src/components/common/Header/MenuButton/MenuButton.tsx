@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import IconArrowDown from 'public/assets/iconArrowDown.svg';
 
 export enum EHeaderMenu {
-  home = 'Tonic Badge',
+  home = 'Tonic Pass',
   discover = 'Discover',
   create = 'Create',
 }

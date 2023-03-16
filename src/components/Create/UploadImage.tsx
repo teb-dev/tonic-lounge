@@ -78,7 +78,7 @@ function UploadImage() {
       {previewImage && (
         <StImage
           src={previewImage}
-          alt="badge"
+          alt="pass"
           onClick={handleClick}
           // eslint-disable-next-line jsx-a11y/no-noninteractive-element-to-interactive-role
           role="button"

@@ -27,7 +27,7 @@ export interface CreateBadgeFormTypes {
 }
 
 function CreateBadge() {
-  const TITLE = 'Create Your Own Tonic Lounge Pass';
+  const TITLE = 'Create Your Own Lounge Pass';
   const [isAbleToSubmit, setIsAbleToSubmit] = useState(false);
   const userFriendlyAddress = useTonAddress();
   const [tonConnectUI, setOptions] = useTonConnectUI();
@@ -54,7 +54,7 @@ function CreateBadge() {
 
   const HandleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    confirm('Are you sure you want to create the badge?');
+    confirm('Are you sure you want to create the pass?');
     const { title, description, image, walletLists, email } = getValues();
 
     createBadge(title, description, image, email, walletLists, userFriendlyAddress, tonConnectUI);

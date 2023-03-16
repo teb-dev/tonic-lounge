@@ -45,14 +45,14 @@ function CreateBadgeForm({ setIsAbleToSubmit, titleLength }: CreateBadgeFormProp
       </StTitleArea>
       <StInput
         type="text"
-        placeholder="Name Your Tonic Badge"
+        placeholder="Name Your Tonic Lounge Pass"
         id="title"
         maxLength={25}
         {...register('title', { required: true, maxLength: 25 })}
       />
       <StLabel htmlFor="email">Description</StLabel>
       <StTextArea
-        placeholder="Explain how it stands out and Describe meaning of your badge"
+        placeholder="Explain how it stands out and Describe meaning of your lounge pass"
         id="description"
         {...register('description')}
       />
