@@ -58,9 +58,7 @@ function CreateBadge() {
   useEffect(() => {
     getTonBalance(userFriendlyAddress);
     setWalletAddress(userFriendlyAddress);
-  }, [ton, userFriendlyAddress]);
-
-  console.log('wallet', walletAddress);
+  }, [ton, userFriendlyAddress, walletAddress]);
   const {
     // handleSubmit,
     watch,
@@ -73,7 +71,16 @@ function CreateBadge() {
     confirm('Are you sure you want to create the pass?');
     const { title, description, image, walletLists, email } = getValues();
 
-    createBadge(title, description, image, email, walletLists, userFriendlyAddress, tonConnectUI);
+    createBadge(
+      title,
+      description,
+      image,
+      email,
+      walletLists,
+      userFriendlyAddress,
+      tonConnectUI,
+      walletAddress,
+    );
     setIsSubmit(true);
     //deployNftCollection(userFriendlyAddress, tonConnectUI, result.nftItemContentBaseUri);
 

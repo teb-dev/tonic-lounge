@@ -54,6 +54,7 @@ export const createBadge = async (
   walletLists: Array<string>,
   userFriendlyAddress: string,
   tonConnectUI: any,
+  walletAddress: string | null,
 ) => {
   const formData = new FormData();
 
