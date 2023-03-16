@@ -61,6 +61,7 @@ export const createBadge = async (
   formData.append('description', description);
   formData.append('email', email);
   formData.append('walletLists', JSON.stringify(walletLists));
+  formData.append('owner', userFriendlyAddress);
   if (image) {
     formData.append('image', image);
   }

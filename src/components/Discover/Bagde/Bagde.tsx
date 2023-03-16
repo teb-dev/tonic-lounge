@@ -11,6 +11,7 @@ export interface IBadge {
   isWhiteListed: number;
   mintAmount: number;
   id: number;
+  owner: string;
 }
 
 const Badge = (props: { badge: IBadge }) => {
@@ -36,6 +37,7 @@ const Badge = (props: { badge: IBadge }) => {
               props.badge.nftItemContentBaseUri,
               props.badge.mintAmount,
               props.badge.id,
+              props.badge.owner,
             )
           }
         >

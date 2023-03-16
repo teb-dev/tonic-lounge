@@ -73,13 +73,14 @@ export const deployNftItem = async (
   nftItemContentBaseUri: string,
   mintAmount: number,
   id: number,
+  owner: string,
 ) => {
   const WalletAddress = new TonWeb.utils.Address(address);
 
   const nftCollection = new NftCollection(tonweb.provider, {
-    ownerAddress: WalletAddress,
+    ownerAddress: owner,
     royalty: 0,
-    royaltyAddress: WalletAddress,
+    royaltyAddress: owner,
     collectionContentUri: `${nftItemContentBaseUri}badge.json`,
     nftItemContentBaseUri: `${nftItemContentBaseUri}`,
     nftItemCodeHex: NftItem.codeHex,
