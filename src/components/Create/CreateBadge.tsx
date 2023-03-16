@@ -74,7 +74,7 @@ function CreateBadge() {
     const { title, description, image, walletLists, email } = getValues();
 
     createBadge(title, description, image, email, walletLists, userFriendlyAddress, tonConnectUI);
-
+    setIsSubmit(true);
     //deployNftCollection(userFriendlyAddress, tonConnectUI, result.nftItemContentBaseUri);
 
     // TODO getValues()로 받아온 값들을 서버로 보내야함
