@@ -90,9 +90,9 @@ export const deployNftItem = async (
     nftItemCodeHex: NftItem.codeHex,
   });
 
-  const nftCollectionAddress = await nftCollection.getAddress();
+  //const nftCollectionAddress = await nftCollection.getAddress();
 
-  console.log('collection address=', nftCollectionAddress.toString(true, true, true));
+  //console.log('collection address=', nftCollectionAddress.toString(true, true, true));
 
   const amount = TonWeb.utils.toNano((0.05).toString());
 
