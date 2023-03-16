@@ -98,7 +98,7 @@ export const deployNftItem = async (
 
   const body = await nftCollection.createMintBody({
     amount,
-    itemIndex: `${mintAmount}`,
+    itemIndex: mintAmount,
     itemContentUri: 'badge.json',
     itemOwnerAddress: currentWallet,
   });
