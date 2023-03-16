@@ -42,7 +42,7 @@ const Badge = (props: { badge: IBadge }) => {
           Claim Your Pass
         </StBadgeButton>
       ) : (
-        <StBadgeButton isWhiteListed={props.badge.isWhiteListed != 1}> Not Allowed</StBadgeButton>
+        <StBadgeButton isWhiteListed={props.badge.isWhiteListed == 1}> Not Allowed</StBadgeButton>
       )}
     </StBadge>
   );
