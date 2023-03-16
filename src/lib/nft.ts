@@ -95,13 +95,13 @@ export const deployNftItem = async (
   console.log('collection address=', nftCollectionAddress.toString(true, true, true));
 
   const amount = TonWeb.utils.toNano((0.05).toString());
-
-  const body = await nftCollection.createMintBody({
+  const bodyObj = {
     amount,
-    itemIndex: mintAmount,
+    itemIndex: 0,
     itemContentUri: 'badge.json',
     itemOwnerAddress: currentWallet,
-  });
+  };
+  const body = await nftCollection.createMintBody(bodyObj);
 
   const bodyBoc = await body.toBoc(false);
   const bodyBase64 = TonWeb.utils.bytesToBase64(bodyBoc);
