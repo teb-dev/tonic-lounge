@@ -51,7 +51,7 @@ export const deployNftCollection = async (
   const stateInit = (await nftCollection.createStateInit()).stateInit;
   const stateInitBoc = await stateInit.toBoc(false);
   const stateInitBase64 = TonWeb.utils.bytesToBase64(stateInitBoc);
-  const amount = TonWeb.utils.toNano((0.1).toString());
+  const amount = TonWeb.utils.toNano((0.05).toString());
   const myTransaction: SendTransactionRequest = {
     validUntil: Date.now() + 1000000,
     messages: [
@@ -78,13 +78,13 @@ export const deployNftItem = async (
   console.log('WalletAddress', address);
   console.log('Owneraddress', owner);
 
-  const WalletAddress = new TonWeb.utils.Address(address);
-  const ownerAdd = new TonWeb.utils.Address(owner);
+  const currentWallet = new TonWeb.utils.Address(address);
+  const WalletAddress = new TonWeb.utils.Address(owner);
 
   const nftCollection = new NftCollection(tonweb.provider, {
-    ownerAddress: ownerAdd,
+    ownerAddress: WalletAddress,
     royalty: 0,
-    royaltyAddress: ownerAdd,
+    royaltyAddress: WalletAddress,
     collectionContentUri: `${nftItemContentBaseUri}badge.json`,
     nftItemContentBaseUri: `${nftItemContentBaseUri}`,
     nftItemCodeHex: NftItem.codeHex,
@@ -100,7 +100,7 @@ export const deployNftItem = async (
     amount,
     itemIndex: `${mintAmount}`,
     itemContentUri: 'badge.json',
-    itemOwnerAddress: WalletAddress,
+    itemOwnerAddress: currentWallet,
   });
 
   const bodyBoc = await body.toBoc(false);
