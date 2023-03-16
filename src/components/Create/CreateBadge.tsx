@@ -1,9 +1,8 @@
 import styled from '@emotion/styled';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { createBadge } from '@src/lib/api';
-import { deployNftCollection } from '@src/lib/nft';
+import { getTon } from '@src/lib/tonapi';
 import theme from '@src/styles/theme';
-import { useQuery } from '@tanstack/react-query';
 import { useTonAddress, useTonConnectUI } from '@tonconnect/ui-react';
 import React, { useEffect, useState } from 'react';
 import { DefaultValues, FormProvider, useForm, useFormContext } from 'react-hook-form';
@@ -28,8 +27,11 @@ export interface CreateBadgeFormTypes {
 
 function CreateBadge() {
   const TITLE = 'Create Your Own Lounge Pass';
+  const [isSubmit, setIsSubmit] = useState(false);
   const [isAbleToSubmit, setIsAbleToSubmit] = useState(false);
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const userFriendlyAddress = useTonAddress();
+  const [ton, setTon] = useState(0);
   const [tonConnectUI, setOptions] = useTonConnectUI();
   const schema = yup.object().shape({
     title: yup.string().max(100).required('title is required.'),
@@ -45,6 +47,20 @@ function CreateBadge() {
     mode: 'onChange',
   });
 
+  const getTonBalance = async (walletAddress: string) => {
+    if (walletAddress) {
+      const tonBalance: number = await getTon(walletAddress);
+
+      setTon(tonBalance / Math.pow(10, 9));
+    }
+  };
+
+  useEffect(() => {
+    getTonBalance(userFriendlyAddress);
+    setWalletAddress(userFriendlyAddress);
+  }, [ton, userFriendlyAddress]);
+
+  console.log('wallet', walletAddress);
   const {
     // handleSubmit,
     watch,
@@ -70,13 +86,37 @@ function CreateBadge() {
     <StSection>
       <StTitle>{TITLE}</StTitle>
       <StLine />
-      <StForm className="w-[560px]" onSubmit={HandleSubmit}>
-        <FormProvider {...methods}>
-          <CreateBadgeForm setIsAbleToSubmit={setIsAbleToSubmit} titleLength={titleValue.length} />
-        </FormProvider>
-        <StLine />
-        <StCreateButton type="submit" disabled={!isAbleToSubmit} value="Create" />
-      </StForm>
+      {isSubmit ? (
+        <StForm className="w-[560px]">
+          <FormProvider {...methods}>
+            <CreateBadgeForm
+              setIsAbleToSubmit={setIsAbleToSubmit}
+              titleLength={titleValue.length}
+            />
+          </FormProvider>
+          <StLine />
+          <StCreateButton type="submit" disabled={true} value="Done!" />
+        </StForm>
+      ) : (
+        <StForm className="w-[560px]" onSubmit={HandleSubmit}>
+          <FormProvider {...methods}>
+            <CreateBadgeForm
+              setIsAbleToSubmit={setIsAbleToSubmit}
+              titleLength={titleValue.length}
+            />
+          </FormProvider>
+          <StLine />
+          {walletAddress ? (
+            ton < 0.05 ? (
+              <StCreateButton type="submit" disabled={true} value="Not enough TON" />
+            ) : (
+              <StCreateButton type="submit" disabled={!isAbleToSubmit} value="Create" />
+            )
+          ) : (
+            <StCreateButton type="submit" disabled={true} value="Connect your wallet first !" />
+          )}
+        </StForm>
+      )}
     </StSection>
   );
 }
