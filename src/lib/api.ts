@@ -1,7 +1,7 @@
 import { deployNftCollection } from '@src/lib/nft';
 import { LoungeResponse } from '@src/types';
 import axios from 'axios';
-const URL = 'http://ec2-3-37-70-35.ap-northeast-2.compute.amazonaws.com:3000';
+const URL = 'https://tebdev.xyz';
 const BUCKET_URL = 'https://tonic-lounge-nft.s3.ap-northeast-2.amazonaws.com/';
 
 export const getLounges = async (page: number) => {

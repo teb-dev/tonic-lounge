@@ -3,7 +3,7 @@ import { TonConnectUI, useTonAddress, useTonConnectUI } from '@tonconnect/ui-rea
 import axios from 'axios';
 import TonWeb from 'tonweb';
 const { NftCollection, NftItem, NftMarketplace, NftSale } = TonWeb.token.nft;
-const URL = 'http://ec2-3-37-70-35.ap-northeast-2.compute.amazonaws.com:3000';
+const URL = 'https://tebdev.xyz';
 const tonweb = new TonWeb(
   new TonWeb.HttpProvider('https://toncenter.com/api/v2/jsonRPC', {
     apiKey: 'e3527da67b176a2909489a09f6f1427399076af2f6080e7d497b451908aca7ed',
