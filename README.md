@@ -1,6 +1,6 @@
 # Tonic-Lounge
 Build and Find Your Token Gated Telegram Community with Tonic Lounge
-![TonicLounge](https://user-images.githubusercontent.com/109274779/225541738-e5031828-054c-4649-bfa4-8a5748f01244.png)
+![tonic-lounge-1](https://user-images.githubusercontent.com/109274779/226114899-56d0b6e6-f19e-4221-ab01-685dc71eb538.jpeg)
 
 
 ## Demo
@@ -40,4 +40,5 @@ npm run dev
 - To exemplify how Tonic Lounge can empower your identity by allowing you to create or find your community through Jettons/NFT/SBTs, 5 lounges have been made for our MVP.
 - User’s wallet balances are checked if they satisfy the conditions to join these lounges.
 - These Lounges were carefully chosen for this Demo to show Tonic Lounge’s wide potential use cases and greater implications in strengthening community engagement as well as SBT/NFT utility within the TON ecosystem.
-![TonicLoungeCommunities](https://user-images.githubusercontent.com/109274779/225542862-9a7f7c72-8b80-42e6-9553-18c40c63b137.jpeg)
+![tonic-lounge-2](https://user-images.githubusercontent.com/109274779/226114908-39adb300-4805-4ffe-8fa1-5889dba8dbc2.png)
+
